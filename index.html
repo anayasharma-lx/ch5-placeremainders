@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Place-Value Remainders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0; --surface:#fff; --surface2:#f0ede8; --border:#d8d4cc;
+  --text:#1a1814; --text2:#5a5650; --text3:#9a958e;
+  --blue:#2c5f9e; --red:#c0392b; --green:#1a7a4a; --orange:#e08020;
+  --font:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);
+  min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5;padding:24px 16px}
+.app{max-width:920px;margin:0 auto}
+
+.head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.head-ic{width:42px;height:42px;border-radius:10px;background:var(--surface2);
+  border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:600;color:var(--text2);font-size:18px;flex-shrink:0}
+.lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:3px}
+.title{font-size:22px;font-weight:700;color:var(--text);line-height:1.2}
+
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
+.card-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:14px}
+
+.intro{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:18px}
+.intro strong{color:var(--text)}
+
+/* Mode picker */
+.mode-toggle{display:flex;gap:0;background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:8px;padding:3px;width:fit-content;margin:0 auto 18px}
+.mode-toggle button{padding:8px 18px;border:none;background:transparent;border-radius:6px;
+  font-family:var(--font);font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s}
+.mode-toggle button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+
+/* Number input */
+.num-input-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.num-input-row label{font-size:13px;font-weight:600;color:var(--text2)}
+.num-input{width:180px;text-align:center;background:var(--surface);
+  border:1.5px solid var(--border);border-radius:8px;color:var(--text);
+  padding:10px 8px;font-size:22px;font-family:var(--mono);outline:none;font-weight:700;transition:all .15s}
+.num-input:focus{border-color:var(--blue)}
+
+.preset-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.preset{padding:6px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;
+  font-family:var(--mono);font-size:12px;color:var(--text2);cursor:pointer;font-weight:600;transition:all .12s}
+.preset:hover{border-color:var(--text3);color:var(--text)}
+
+/* Place-value table */
+.places-wrap{overflow-x:auto;margin-bottom:14px}
+.places-svg{display:block;margin:0 auto}
+
+/* Bar showing accumulator */
+.accumulator{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;
+  padding:16px 18px;margin-top:14px}
+.acc-title{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.acc-formula{font-family:var(--mono);font-size:14px;color:var(--text);font-weight:600;margin-bottom:12px;
+  overflow-x:auto;white-space:nowrap;padding-bottom:4px}
+.acc-formula .pos{color:var(--green)}
+.acc-formula .neg{color:var(--red)}
+.acc-formula .eq{color:var(--text3);margin:0 4px}
+.acc-formula .out{font-size:18px;font-weight:700}
+
+/* Step strip: showing accumulator going through reductions */
+.step-strip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:12px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;
+  font-family:var(--mono);font-size:15px;font-weight:600;color:var(--text)}
+.step-strip .arrow{color:var(--text3);font-size:13px}
+.step-chip{padding:6px 12px;background:var(--surface2);border:1.5px solid var(--border);border-radius:7px}
+.step-chip.final{background:var(--blue);color:#fff;border-color:var(--blue)}
+.step-strip .step-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:auto}
+
+/* Verdict */
+.verdict-row{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+  padding:16px 20px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-top:14px}
+.verdict-stat{text-align:center}
+.verdict-stat .vs-lbl{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.verdict-stat .vs-val{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--text);margin-top:2px;line-height:1}
+.verdict-badge{padding:10px 18px;border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;border:1.5px solid}
+.verdict-badge.yes{background:#f0f7f3;color:var(--green);border-color:var(--green)}
+.verdict-badge.no{background:#fbf2f0;color:var(--red);border-color:var(--red)}
+
+.insight{background:#fff8f0;border:1px solid #f0d8c0;border-left:3px solid var(--orange);
+  border-radius:0 8px 8px 0;padding:12px 15px;font-size:13px;color:#6b4400;
+  line-height:1.65;margin-top:14px}
+.insight strong{color:#4a2e00;font-weight:700}
+
+.tip-tap{display:inline-block;font-size:11px;color:var(--text3);font-style:italic;margin-left:4px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="head">
+    <div class="head-ic">5.2</div>
+    <div>
+      <div class="lbl">Chapter 5 · Section 5.2</div>
+      <div class="title">Place-Value Remainders</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="intro">
+      Why does "add the digits to check divisibility by 9" work? And why does the <strong>alternating</strong> digit sum check 11? It's all about what each place value leaves behind when divided. Watch the dots get grouped into 9s (or 11s) for each digit, and the leftovers — the digits themselves — are exactly what determines the remainder.
+    </p>
+
+    <div class="mode-toggle">
+      <button class="active" data-mode="9">Divide by 9</button>
+      <button data-mode="11">Divide by 11</button>
+    </div>
+
+    <div class="num-input-row">
+      <label>Your number:</label>
+      <input class="num-input" id="num" type="number" value="7309" min="1" max="999999">
+    </div>
+
+    <div class="preset-row" id="presets"></div>
+
+    <div class="places-wrap">
+      <svg id="places-svg" class="places-svg"></svg>
+    </div>
+
+    <div class="accumulator">
+      <div class="acc-title" id="acc-title">Add up what each digit leaves behind</div>
+      <div class="acc-formula" id="acc-formula"></div>
+      <div class="step-strip" id="step-strip">
+        <span class="step-label">Reduce until single digit</span>
+      </div>
+    </div>
+
+    <div class="verdict-row">
+      <div class="verdict-stat">
+        <div class="vs-lbl">Remainder</div>
+        <div class="vs-val" id="remainder">1</div>
+      </div>
+      <div class="verdict-badge" id="verdict">DIVISIBLE</div>
+    </div>
+
+    <div class="insight" id="insight"></div>
+  </div>
+</div>
+
+<script>
+const state = {
+  mode: '9',
+  n: 7309
+};
+
+const PRESETS_9  = [123, 405, 8888, 93547, 358095, 6003, 427, 7309];
+const PRESETS_11 = [158, 841, 481, 5529, 90904, 857076, 328105, 462];
+
+document.querySelectorAll('.mode-toggle button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.mode-toggle button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    state.mode = b.dataset.mode;
+    render();
+  });
+});
+
+document.getElementById('num').addEventListener('input', e => {
+  const v = parseInt(e.target.value);
+  if(!isNaN(v) && v >= 1 && v <= 999999){
+    state.n = v;
+    render();
+  }
+});
+
+function buildPresets(){
+  const list = state.mode === '9' ? PRESETS_9 : PRESETS_11;
+  document.getElementById('presets').innerHTML = list.map(v =>
+    `<button class="preset" data-v="${v}">${v}</button>`
+  ).join('');
+  document.querySelectorAll('.preset').forEach(b => {
+    b.addEventListener('click', () => {
+      state.n = +b.dataset.v;
+      document.getElementById('num').value = state.n;
+      render();
+    });
+  });
+}
+
+// Render the place-value SVG: one column per digit, showing the digit and
+// what each instance of the place value leaves modulo the divisor.
+function renderPlaces(){
+  const digits = String(state.n).split('').map(Number);
+  const D = state.mode === '9' ? 9 : 11;
+  // For 11: alternating signs from units. units = positive.
+  // Index from MSB to LSB; position from units = digits.length - 1 - i
+  const cellW = 90, cellH = 130, gap = 12;
+  const numCols = digits.length;
+  const w = numCols * (cellW + gap) - gap + 40;
+  const h = cellH + 70;
+
+  let svg = '';
+
+  digits.forEach((d, i) => {
+    const posFromUnits = digits.length - 1 - i;
+    const placeVal = Math.pow(10, posFromUnits);
+    const x = 20 + i * (cellW + gap);
+
+    // Sign assignment (for mod-11)
+    const sign = state.mode === '9' ? +1 : (posFromUnits % 2 === 0 ? +1 : -1);
+    const signColor = sign === +1 ? 'var(--green)' : 'var(--red)';
+    const signLabel = sign === +1 ? '+1' : '−1';
+
+    // Background card
+    const cardBg = sign === +1 ? '#f0f7f3' : '#fbf2f0';
+    const cardBorder = sign === +1 ? '#bfd9cd' : '#e6c5bf';
+
+    svg += `<rect x="${x}" y="10" width="${cellW}" height="${cellH}" rx="10" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5"/>`;
+
+    // Digit
+    svg += `<text x="${x + cellW/2}" y="42" text-anchor="middle" font-family="DM Mono,monospace" font-size="32" font-weight="700" fill="var(--text)">${d}</text>`;
+
+    // Place value (e.g., "1000s")
+    const placeLabel = placeVal === 1 ? 'units' : placeVal === 10 ? 'tens' : placeVal === 100 ? '100s' :
+                       placeVal === 1000 ? '1000s' : placeVal === 10000 ? '10000s' : '100000s';
+    svg += `<text x="${x + cellW/2}" y="60" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="var(--text3)" letter-spacing="0.5">${placeLabel.toUpperCase()}</text>`;
+
+    // Place value as multiple-of-D plus/minus residue
+    // For ÷9: place value = (multiple of 9) + 1, e.g. 100 = 99 + 1
+    // For ÷11: alternates 1 = 11·0+1, 10 = 11·1−1, 100 = 11·9+1, 1000 = 11·91−1
+    let multStr;
+    if(state.mode === '9'){
+      if(placeVal === 1) multStr = '0 + 1';
+      else multStr = `${placeVal - 1} + 1`;
+    } else {
+      // sign +1: placeVal = (multiple of 11) + 1 → multiple = placeVal - 1
+      // sign -1: placeVal = (multiple of 11) - 1 → multiple = placeVal + 1
+      if(sign === +1) multStr = `${placeVal - 1} + 1`;
+      else multStr = `${placeVal + 1} − 1`;
+    }
+
+    svg += `<text x="${x + cellW/2}" y="82" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="var(--text2)" font-weight="500">${placeVal} = ${multStr}</text>`;
+
+    // Leftover contribution: d × sign
+    const contrib = d * sign;
+    const contribStr = contrib === 0 ? '0' : (contrib > 0 ? `+${contrib}` : `${contrib}`);
+    svg += `<text x="${x + cellW/2}" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="18" font-weight="700" fill="${signColor}">${contribStr}</text>`;
+
+    // "leaves" label
+    svg += `<text x="${x + cellW/2}" y="130" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="600" fill="var(--text3)" letter-spacing="0.5">LEAVES</text>`;
+
+    // Connector arrow downward from card to formula (visual hint)
+    svg += `<line x1="${x + cellW/2}" y1="${cellH + 12}" x2="${x + cellW/2}" y2="${cellH + 26}" stroke="var(--border)" stroke-width="1.5"/>`;
+    svg += `<polygon points="${x + cellW/2 - 4},${cellH + 26} ${x + cellW/2 + 4},${cellH + 26} ${x + cellW/2},${cellH + 32}" fill="var(--text3)"/>`;
+  });
+
+  const svgEl = document.getElementById('places-svg');
+  svgEl.setAttribute('viewBox', `0 0 ${w} ${h + 20}`);
+  svgEl.setAttribute('width', Math.min(w, 820));
+  svgEl.innerHTML = svg;
+}
+
+function render(){
+  buildPresets();
+  renderPlaces();
+
+  const digits = String(state.n).split('').map(Number);
+  const D = state.mode === '9' ? 9 : 11;
+
+  // Compute accumulator
+  let acc = 0;
+  const pieces = [];
+  digits.forEach((d, i) => {
+    const posFromUnits = digits.length - 1 - i;
+    const sign = state.mode === '9' ? +1 : (posFromUnits % 2 === 0 ? +1 : -1);
+    acc += sign * d;
+    pieces.push({ d, sign });
+  });
+
+  // Build formula HTML
+  let formula = '';
+  pieces.forEach((p, i) => {
+    if(i === 0){
+      formula += `<span class="${p.sign === +1 ? 'pos' : 'neg'}">${p.sign === -1 ? '−' : ''}${p.d}</span>`;
+    } else {
+      formula += ` <span class="${p.sign === +1 ? 'pos' : 'neg'}">${p.sign === +1 ? '+' : '−'} ${p.d}</span>`;
+    }
+  });
+  formula += ` <span class="eq">=</span> <span class="out">${acc}</span>`;
+  document.getElementById('acc-formula').innerHTML = formula;
+  document.getElementById('acc-title').textContent = state.mode === '9'
+    ? 'Add up the "+1" leftovers from each digit'
+    : 'Add the units/hundreds/… digits, subtract the tens/thousands/…';
+
+  // Reduction chain — keep applying the digit-sum (mod 9 case)
+  // For 11: just keep adding/subtracting alternating digits of |acc| until single signed digit in [-10..10]? Actually for 11, the rule is: difference of alternating sums; reduce by mod 11.
+  let chain = [acc];
+  if(state.mode === '9'){
+    let x = Math.abs(acc);
+    while(x >= 10){
+      x = String(x).split('').reduce((a, b) => a + (+b), 0);
+      chain.push(x);
+    }
+  } else {
+    // For 11: take acc, reduce mod 11 by repeatedly applying alternating-sum on |acc|
+    let x = acc;
+    while(Math.abs(x) >= 11){
+      // Apply alternating-sum reduction to |x|, then keep original sign
+      const absDigits = String(Math.abs(x)).split('').map(Number);
+      let red = 0;
+      absDigits.slice().reverse().forEach((d, i) => {
+        red += (i % 2 === 0 ? +1 : -1) * d;
+      });
+      x = (x < 0 ? -red : red);
+      chain.push(x);
+    }
+  }
+
+  // Render step strip
+  let stepHTML = '<span class="step-label">Reduce until below ' + D + '</span>';
+  chain.forEach((v, i) => {
+    if(i > 0) stepHTML += '<span class="arrow">→</span>';
+    stepHTML += `<span class="step-chip ${i === chain.length - 1 ? 'final' : ''}">${v}</span>`;
+  });
+  document.getElementById('step-strip').innerHTML = stepHTML;
+
+  // Remainder mod D
+  const last = chain[chain.length - 1];
+  const rem = ((last % D) + D) % D;
+  document.getElementById('remainder').textContent = rem;
+
+  const divisible = rem === 0;
+  const vb = document.getElementById('verdict');
+  vb.className = 'verdict-badge ' + (divisible ? 'yes' : 'no');
+  vb.textContent = divisible ? `÷ ${D} CLEANLY` : `REMAINDER ${rem}`;
+
+  // Insight text
+  const ins = document.getElementById('insight');
+  if(state.mode === '9'){
+    ins.innerHTML = `Each place value (1, 10, 100, 1000…) is exactly <strong>1 more than a multiple of 9</strong>. When you multiply by a digit and add, all the "multiple-of-9" parts vanish in the division — what remains is just the <strong>digit sum</strong>. That's why ${state.n}'s remainder mod 9 equals the reduced digit sum (${rem}).`;
+  } else {
+    ins.innerHTML = `Place values alternate around multiples of 11: <strong>units = +1, tens = −1, hundreds = +1, thousands = −1</strong>, and so on. The signed digit sum gives the remainder mod 11. For ${state.n} that lands on ${rem}.`;
+  }
+}
+
+render();
+</script>
+</body>
+</html>
