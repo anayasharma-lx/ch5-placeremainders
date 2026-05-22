@@ -1,146 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Place-Value Remainders</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Place-Value Remainders — Ganita Prakash Grade 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f4f0; --surface:#fff; --surface2:#f0ede8; --border:#d8d4cc;
-  --text:#1a1814; --text2:#5a5650; --text3:#9a958e;
-  --blue:#2c5f9e; --red:#c0392b; --green:#1a7a4a; --orange:#e08020;
-  --font:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --paper:#faf8f4; --paper2:#f3f0ea; --paper3:#e8e3d8;
+  --ink:#1c1a16;   --ink2:#4a4640;   --ink3:#8a8580;
+  --rule:#d4cfc5;
+  --teal:#1d6a72;  --teal2:#2a8a94;  --teal-bg:#e8f4f5;
+  --rust:#b84a2a;  --rust-bg:#fdf0ec;
+  --gold:#c08030;  --gold-bg:#fdf5e8;
+  --sage:#3a6a48;  --sage-bg:#eaf2ec;
+  --font:'DM Sans',sans-serif;
+  --serif:'Lora',Georgia,serif;
   --mono:'DM Mono',ui-monospace,monospace;
+  --shadow:0 2px 12px rgba(28,26,22,.08);
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);
-  min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5;padding:24px 16px}
-.app{max-width:920px;margin:0 auto}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;padding:28px 20px 60px;line-height:1.6;background-image:radial-gradient(circle at 20% 30%,rgba(192,128,48,.04) 0,transparent 50%),radial-gradient(circle at 80% 70%,rgba(29,106,114,.04) 0,transparent 50%)}
+.app{max-width:900px;margin:0 auto}
 
-.head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-.head-ic{width:42px;height:42px;border-radius:10px;background:var(--surface2);
-  border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-weight:600;color:var(--text2);font-size:18px;flex-shrink:0}
-.lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:3px}
-.title{font-size:22px;font-weight:700;color:var(--text);line-height:1.2}
+.header{margin-bottom:24px;padding-bottom:18px;border-bottom:1.5px solid var(--rule)}
+.chapter-badge{display:inline-flex;align-items:center;gap:8px;background:var(--paper2);border:1.5px solid var(--rule);border-radius:20px;padding:4px 14px 4px 10px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.badge-num{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;font-family:var(--mono);display:flex;align-items:center;justify-content:center}
+h1{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.3px;line-height:1.2;margin-bottom:5px}
+.header-sub{font-size:14px;color:var(--ink2);max-width:560px;line-height:1.55}
 
-.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
-.card-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:14px}
+.card{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}
 
-.intro{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:18px}
-.intro strong{color:var(--text)}
+.concept{background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 16px;margin-bottom:20px;font-family:var(--serif);font-style:italic;font-size:14px;color:#4a3010;line-height:1.65}
+.concept strong{font-style:normal;font-weight:700;color:#3a2008}
 
-/* Mode picker */
-.mode-toggle{display:flex;gap:0;background:var(--surface2);border:1.5px solid var(--border);
-  border-radius:8px;padding:3px;width:fit-content;margin:0 auto 18px}
-.mode-toggle button{padding:8px 18px;border:none;background:transparent;border-radius:6px;
-  font-family:var(--font);font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s}
-.mode-toggle button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+/* Mode tabs */
+.tabs{display:flex;gap:3px;background:var(--paper2);border:1.5px solid var(--rule);border-radius:12px;padding:4px;margin-bottom:20px}
+.tab{flex:1;padding:10px;border:none;background:transparent;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;transition:all .15s;text-align:center}
+.tab:hover{color:var(--ink2)}
+.tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(28,26,22,.10);border:1.5px solid var(--rule)}
 
-/* Number input */
-.num-input-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
-.num-input-row label{font-size:13px;font-weight:600;color:var(--text2)}
-.num-input{width:180px;text-align:center;background:var(--surface);
-  border:1.5px solid var(--border);border-radius:8px;color:var(--text);
-  padding:10px 8px;font-size:22px;font-family:var(--mono);outline:none;font-weight:700;transition:all .15s}
-.num-input:focus{border-color:var(--blue)}
+/* Number picker */
+.num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.num-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);white-space:nowrap}
+.num-input{width:160px;text-align:center;background:#fff;border:1.5px solid var(--rule);border-radius:9px;color:var(--ink);padding:8px;font-size:22px;font-family:var(--mono);outline:none;font-weight:800;transition:border-color .15s}
+.num-input:focus{border-color:var(--teal)}
 
-.preset-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
-.preset{padding:6px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;
-  font-family:var(--mono);font-size:12px;color:var(--text2);cursor:pointer;font-weight:600;transition:all .12s}
-.preset:hover{border-color:var(--text3);color:var(--text)}
+.preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.psc{padding:5px 11px;background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .12s}
+.psc:hover{border-color:var(--teal);color:var(--teal)}
 
-/* Place-value table */
-.places-wrap{overflow-x:auto;margin-bottom:14px}
-.places-svg{display:block;margin:0 auto}
+/* ── DIGIT CARDS ── */
+.digit-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;flex-wrap:nowrap}
 
-/* Bar showing accumulator */
-.accumulator{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;
-  padding:16px 18px;margin-top:14px}
-.acc-title{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
-.acc-formula{font-family:var(--mono);font-size:14px;color:var(--text);font-weight:600;margin-bottom:12px;
-  overflow-x:auto;white-space:nowrap;padding-bottom:4px}
-.acc-formula .pos{color:var(--green)}
-.acc-formula .neg{color:var(--red)}
-.acc-formula .eq{color:var(--text3);margin:0 4px}
-.acc-formula .out{font-size:18px;font-weight:700}
+.digit-card{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  background:#fff;border:2px solid var(--rule);border-radius:12px;
+  padding:12px 10px 10px;min-width:90px;flex-shrink:0;
+  transition:all .25s;position:relative
+}
+.digit-card.correct{border-color:#8abcaa;background:var(--sage-bg)}
+.digit-card.wrong-anim{animation:shake .35s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-/* Step strip: showing accumulator going through reductions */
-.step-strip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  padding:12px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;
-  font-family:var(--mono);font-size:15px;font-weight:600;color:var(--text)}
-.step-strip .arrow{color:var(--text3);font-size:13px}
-.step-chip{padding:6px 12px;background:var(--surface2);border:1.5px solid var(--border);border-radius:7px}
-.step-chip.final{background:var(--blue);color:#fff;border-color:var(--blue)}
-.step-strip .step-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:auto}
+.dc-place{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3)}
+.dc-digit{font-family:var(--mono);font-size:30px;font-weight:800;color:var(--ink);line-height:1}
+.dc-rule{font-family:var(--mono);font-size:10px;color:var(--ink3);text-align:center;line-height:1.3;min-height:28px;display:flex;align-items:center}
+.dc-sep{width:60px;height:1.5px;background:var(--rule);margin:2px 0}
+
+/* The "leaves" slot — clickable or display */
+.dc-slot{
+  width:56px;height:40px;border:2px solid var(--rule);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:20px;font-weight:800;
+  background:var(--paper2);color:var(--ink3);
+  transition:all .2s;position:relative;overflow:hidden
+}
+.dc-slot.filled{background:#fff;color:var(--ink)}
+.dc-slot.filled.pos{color:var(--sage);border-color:#8abcaa;background:var(--sage-bg)}
+.dc-slot.filled.neg{color:var(--rust);border-color:#e0a898;background:var(--rust-bg)}
+
+/* For mod-9: single "confirm" button  */
+.confirm-btn{
+  padding:4px 10px;border:1.5px solid var(--teal);border-radius:20px;
+  background:var(--teal-bg);color:var(--teal);font-family:var(--font);
+  font-size:11px;font-weight:700;cursor:pointer;transition:all .12s;white-space:nowrap
+}
+.confirm-btn:hover{background:var(--teal);color:#fff}
+.confirm-btn:disabled{opacity:.35;cursor:default}
+
+/* For mod-11: +1 / −1 choice buttons */
+.sign-btns{display:flex;gap:4px}
+.sign-btn{
+  width:36px;height:32px;border-radius:7px;border:1.5px solid;
+  font-family:var(--mono);font-size:14px;font-weight:800;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .14s
+}
+.sign-btn.plus{background:var(--sage-bg);border-color:#8abcaa;color:var(--sage)}
+.sign-btn.plus:hover{background:var(--sage);color:#fff}
+.sign-btn.minus{background:var(--rust-bg);border-color:#e0a898;color:var(--rust)}
+.sign-btn.minus:hover{background:var(--rust);color:#fff}
+.sign-btn:disabled{opacity:.3;cursor:default}
+
+/* ── ACCUMULATOR ── */
+.acc-box{background:var(--paper2);border:1.5px solid var(--rule);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.acc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink3);margin-bottom:8px}
+.acc-sum{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--mono);font-size:16px;font-weight:700;margin-bottom:10px;min-height:28px}
+.acc-term{padding:3px 8px;border-radius:6px;font-weight:800}
+.acc-term.pos{background:var(--sage-bg);color:var(--sage)}
+.acc-term.neg{background:var(--rust-bg);color:var(--rust)}
+.acc-term.op{color:var(--ink3);background:none;padding:0 2px;font-weight:600}
+.acc-term.pending{background:var(--paper3);color:var(--ink3)}
+.acc-term.total{font-size:20px;color:var(--teal);border:1.5px solid var(--teal2);border-radius:8px;padding:3px 12px;background:var(--teal-bg)}
+
+/* Reduction chain */
+.chain-strip{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.chain-chip{padding:5px 11px;border-radius:7px;font-family:var(--mono);font-size:13px;font-weight:700;border:1.5px solid var(--rule);background:#fff;color:var(--ink2)}
+.chain-chip.final{background:var(--teal);border-color:var(--teal);color:#fff}
+.chain-arr{color:var(--ink3);font-size:14px}
 
 /* Verdict */
-.verdict-row{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
-  padding:16px 20px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-top:14px}
-.verdict-stat{text-align:center}
-.verdict-stat .vs-lbl{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.verdict-stat .vs-val{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--text);margin-top:2px;line-height:1}
-.verdict-badge{padding:10px 18px;border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:700;
-  text-transform:uppercase;letter-spacing:1px;border:1.5px solid}
-.verdict-badge.yes{background:#f0f7f3;color:var(--green);border-color:var(--green)}
-.verdict-badge.no{background:#fbf2f0;color:var(--red);border-color:var(--red)}
+.verdict-row{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:14px 18px;background:#fff;border:1.5px solid var(--rule);border-radius:11px;margin-top:4px}
+.vstat{text-align:center}
+.vs-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink3);margin-bottom:3px}
+.vs-val{font-family:var(--mono);font-size:26px;font-weight:800;color:var(--ink);line-height:1}
+.vbadge{padding:10px 18px;border-radius:9px;font-family:var(--mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;border:1.5px solid}
+.vbadge.yes{background:var(--sage-bg);color:var(--sage);border-color:#8abcaa}
+.vbadge.no{background:var(--rust-bg);color:var(--rust);border-color:#e0a898}
 
-.insight{background:#fff8f0;border:1px solid #f0d8c0;border-left:3px solid var(--orange);
-  border-radius:0 8px 8px 0;padding:12px 15px;font-size:13px;color:#6b4400;
-  line-height:1.65;margin-top:14px}
-.insight strong{color:#4a2e00;font-weight:700}
+/* Progress hint */
+.progress-hint{font-size:12px;color:var(--ink3);text-align:center;margin:8px 0;font-style:italic}
 
-.tip-tap{display:inline-block;font-size:11px;color:var(--text3);font-style:italic;margin-left:4px}
+.insight{background:var(--gold-bg);border:1px solid #e0c080;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 15px;font-size:13px;color:#6b4400;line-height:1.65;margin-top:14px}
+.insight strong{color:#4a2e00}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="head">
-    <div class="head-ic">5.2</div>
-    <div>
-      <div class="lbl">Chapter 5 · Section 5.2</div>
-      <div class="title">Place-Value Remainders</div>
-    </div>
+  <div class="header">
+    <div class="chapter-badge"><div class="badge-num">5</div>Chapter 5 · Playing with Numbers</div>
+    <h1>Place-Value Remainders</h1>
+    <p class="header-sub">Why does adding digits check divisibility by 9? Why alternating digits for 11? Discover the pattern one digit at a time.</p>
   </div>
 
   <div class="card">
-    <p class="intro">
-      Why does "add the digits to check divisibility by 9" work? And why does the <strong>alternating</strong> digit sum check 11? It's all about what each place value leaves behind when divided. Watch the dots get grouped into 9s (or 11s) for each digit, and the leftovers — the digits themselves — are exactly what determines the remainder.
-    </p>
-
-    <div class="mode-toggle">
-      <button class="active" data-mode="9">Divide by 9</button>
-      <button data-mode="11">Divide by 11</button>
+    <div class="concept" id="concept-text">
+      <strong>The secret:</strong> every place value (1, 10, 100, 1000…) is exactly <em>1 more than a multiple of 9</em>. So when you divide, the multiple-of-9 part vanishes — only the digit itself is left behind. Fill in what each digit leaves behind, then add them up.
     </div>
 
-    <div class="num-input-row">
-      <label>Your number:</label>
-      <input class="num-input" id="num" type="number" value="7309" min="1" max="999999">
+    <div class="tabs">
+      <button class="tab active" data-mode="9">÷ 9 (digit sum)</button>
+      <button class="tab" data-mode="11">÷ 11 (alternating sum)</button>
     </div>
 
-    <div class="preset-row" id="presets"></div>
+    <div class="num-row">
+      <span class="num-lbl">Number:</span>
+      <input class="num-input" id="num-input" type="number" value="7309" min="1" max="999999">
+    </div>
+    <div class="preset-row" id="preset-row"></div>
 
-    <div class="places-wrap">
-      <svg id="places-svg" class="places-svg"></svg>
+    <!-- Digit cards strip -->
+    <div class="digit-strip" id="digit-strip"></div>
+
+    <div class="progress-hint" id="progress-hint">Fill in each card to see the sum →</div>
+
+    <!-- Accumulator -->
+    <div class="acc-box">
+      <div class="acc-lbl" id="acc-lbl">What each digit leaves behind</div>
+      <div class="acc-sum" id="acc-sum"></div>
+      <div class="chain-strip" id="chain-strip"></div>
     </div>
 
-    <div class="accumulator">
-      <div class="acc-title" id="acc-title">Add up what each digit leaves behind</div>
-      <div class="acc-formula" id="acc-formula"></div>
-      <div class="step-strip" id="step-strip">
-        <span class="step-label">Reduce until single digit</span>
+    <div class="verdict-row" id="verdict-row" style="display:none">
+      <div class="vstat">
+        <div class="vs-lbl">Remainder ÷ <span id="divisor-lbl">9</span></div>
+        <div class="vs-val" id="rem-val">0</div>
       </div>
-    </div>
-
-    <div class="verdict-row">
-      <div class="verdict-stat">
-        <div class="vs-lbl">Remainder</div>
-        <div class="vs-val" id="remainder">1</div>
-      </div>
-      <div class="verdict-badge" id="verdict">DIVISIBLE</div>
+      <div class="vbadge" id="vbadge">—</div>
     </div>
 
     <div class="insight" id="insight"></div>
@@ -148,201 +185,339 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);
 </div>
 
 <script>
-const state = {
-  mode: '9',
-  n: 7309
-};
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let mode = 9;
+let number = 7309;
+let filled = [];   // null = not yet filled, value = what student entered
 
-const PRESETS_9  = [123, 405, 8888, 93547, 358095, 6003, 427, 7309];
-const PRESETS_11 = [158, 841, 481, 5529, 90904, 857076, 328105, 462];
+const PRESETS_9  = [405, 8888, 7309, 93547, 6003, 358095];
+const PRESETS_11 = [5324, 2728, 841, 90904, 462, 38192];
 
-document.querySelectorAll('.mode-toggle button').forEach(b => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('.mode-toggle button').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    state.mode = b.dataset.mode;
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    mode = +tab.dataset.mode;
+    updateConcept();
     render();
   });
 });
 
-document.getElementById('num').addEventListener('input', e => {
-  const v = parseInt(e.target.value);
-  if(!isNaN(v) && v >= 1 && v <= 999999){
-    state.n = v;
-    render();
+function updateConcept(){
+  const el = document.getElementById('concept-text');
+  if(mode===9){
+    el.innerHTML = '<strong>The secret:</strong> every place value (1, 10, 100, 1000…) is exactly <em>1 more than a multiple of 9</em>. When you divide, the multiple-of-9 part vanishes — only the digit itself is left. Fill in what each digit leaves behind, then add them up.';
+  } else {
+    el.innerHTML = '<strong>The secret:</strong> place values <em>alternate</em> around multiples of 11: 1 = (0×11)+<strong>1</strong>, 10 = (1×11)−<strong>1</strong>, 100 = (9×11)+<strong>1</strong>, 1000 = (91×11)−<strong>1</strong>… Each position leaves either +1 or −1. Click the correct sign for each digit.';
   }
-});
+}
 
-function buildPresets(){
-  const list = state.mode === '9' ? PRESETS_9 : PRESETS_11;
-  document.getElementById('presets').innerHTML = list.map(v =>
-    `<button class="preset" data-v="${v}">${v}</button>`
+// ══════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════
+function sup(n){
+  return String(n).split('').map(c=>({'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}[c]||c)).join('');
+}
+function placeName(pos){ // pos from units = 0
+  if(pos===0) return 'Units';
+  if(pos===1) return 'Tens';
+  if(pos===2) return 'Hundreds';
+  if(pos===3) return 'Thousands';
+  if(pos===4) return '10 Thousands';
+  return '100 Thousands';
+}
+function getDigits(){ return String(number).split('').map(Number); }
+function getSign(posFromUnits){
+  if(mode===9) return +1;
+  return posFromUnits%2===0 ? +1 : -1;
+}
+function getCorrect(digit, posFromUnits){
+  return digit * getSign(posFromUnits);
+}
+function getRuleText(posFromUnits){
+  const pv = Math.pow(10, posFromUnits);
+  if(mode===9){
+    return pv===1 ? '1 = 0×9 + 1' : `${pv} = ${pv-1}×1 + 1\n(=${((pv-1)/9).toFixed(0)}×9 + 1)`;
+  } else {
+    const sign = getSign(posFromUnits);
+    if(sign===+1) return `${pv} = ${(pv-1)/11|0}×11 + 1`;
+    else          return `${pv} = ${(pv+1)/11|0}×11 − 1`;
+  }
+}
+
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
+function render(){
+  const digits = getDigits();
+  filled = Array(digits.length).fill(null);
+
+  // Presets
+  const presets = mode===9 ? PRESETS_9 : PRESETS_11;
+  document.getElementById('preset-row').innerHTML = presets.map(v=>
+    `<button class="psc" data-v="${v}">${v}</button>`
   ).join('');
-  document.querySelectorAll('.preset').forEach(b => {
-    b.addEventListener('click', () => {
-      state.n = +b.dataset.v;
-      document.getElementById('num').value = state.n;
+  document.querySelectorAll('.psc').forEach(b=>{
+    b.addEventListener('click',()=>{
+      number = +b.dataset.v;
+      document.getElementById('num-input').value = number;
       render();
     });
   });
+
+  document.getElementById('divisor-lbl').textContent = mode;
+  document.getElementById('verdict-row').style.display='none';
+  updateAccum();
+  buildCards();
+  updateHint();
 }
 
-// Render the place-value SVG: one column per digit, showing the digit and
-// what each instance of the place value leaves modulo the divisor.
-function renderPlaces(){
-  const digits = String(state.n).split('').map(Number);
-  const D = state.mode === '9' ? 9 : 11;
-  // For 11: alternating signs from units. units = positive.
-  // Index from MSB to LSB; position from units = digits.length - 1 - i
-  const cellW = 90, cellH = 130, gap = 12;
-  const numCols = digits.length;
-  const w = numCols * (cellW + gap) - gap + 40;
-  const h = cellH + 70;
+function buildCards(){
+  const digits = getDigits();
+  const strip = document.getElementById('digit-strip');
+  strip.innerHTML = '';
 
-  let svg = '';
-
-  digits.forEach((d, i) => {
+  digits.forEach((d, i)=>{
     const posFromUnits = digits.length - 1 - i;
-    const placeVal = Math.pow(10, posFromUnits);
-    const x = 20 + i * (cellW + gap);
+    const sign = getSign(posFromUnits);
+    const correct = getCorrect(d, posFromUnits);
+    const pv = Math.pow(10, posFromUnits);
 
-    // Sign assignment (for mod-11)
-    const sign = state.mode === '9' ? +1 : (posFromUnits % 2 === 0 ? +1 : -1);
-    const signColor = sign === +1 ? 'var(--green)' : 'var(--red)';
-    const signLabel = sign === +1 ? '+1' : '−1';
+    const card = document.createElement('div');
+    card.className = 'digit-card';
+    card.id = 'card-'+i;
 
-    // Background card
-    const cardBg = sign === +1 ? '#f0f7f3' : '#fbf2f0';
-    const cardBorder = sign === +1 ? '#bfd9cd' : '#e6c5bf';
+    // Place name
+    const placeEl = document.createElement('div');
+    placeEl.className = 'dc-place';
+    placeEl.textContent = placeName(posFromUnits);
+    card.appendChild(placeEl);
 
-    svg += `<rect x="${x}" y="10" width="${cellW}" height="${cellH}" rx="10" fill="${cardBg}" stroke="${cardBorder}" stroke-width="1.5"/>`;
+    // Big digit
+    const digEl = document.createElement('div');
+    digEl.className = 'dc-digit';
+    digEl.textContent = d;
+    card.appendChild(digEl);
 
-    // Digit
-    svg += `<text x="${x + cellW/2}" y="42" text-anchor="middle" font-family="DM Mono,monospace" font-size="32" font-weight="700" fill="var(--text)">${d}</text>`;
+    // Rule text
+    const ruleEl = document.createElement('div');
+    ruleEl.className = 'dc-rule';
+    ruleEl.style.whiteSpace = 'pre-line';
+    ruleEl.textContent = getRuleText(posFromUnits);
+    card.appendChild(ruleEl);
 
-    // Place value (e.g., "1000s")
-    const placeLabel = placeVal === 1 ? 'units' : placeVal === 10 ? 'tens' : placeVal === 100 ? '100s' :
-                       placeVal === 1000 ? '1000s' : placeVal === 10000 ? '10000s' : '100000s';
-    svg += `<text x="${x + cellW/2}" y="60" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="var(--text3)" letter-spacing="0.5">${placeLabel.toUpperCase()}</text>`;
-
-    // Place value as multiple-of-D plus/minus residue
-    // For ÷9: place value = (multiple of 9) + 1, e.g. 100 = 99 + 1
-    // For ÷11: alternates 1 = 11·0+1, 10 = 11·1−1, 100 = 11·9+1, 1000 = 11·91−1
-    let multStr;
-    if(state.mode === '9'){
-      if(placeVal === 1) multStr = '0 + 1';
-      else multStr = `${placeVal - 1} + 1`;
-    } else {
-      // sign +1: placeVal = (multiple of 11) + 1 → multiple = placeVal - 1
-      // sign -1: placeVal = (multiple of 11) - 1 → multiple = placeVal + 1
-      if(sign === +1) multStr = `${placeVal - 1} + 1`;
-      else multStr = `${placeVal + 1} − 1`;
-    }
-
-    svg += `<text x="${x + cellW/2}" y="82" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="var(--text2)" font-weight="500">${placeVal} = ${multStr}</text>`;
-
-    // Leftover contribution: d × sign
-    const contrib = d * sign;
-    const contribStr = contrib === 0 ? '0' : (contrib > 0 ? `+${contrib}` : `${contrib}`);
-    svg += `<text x="${x + cellW/2}" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="18" font-weight="700" fill="${signColor}">${contribStr}</text>`;
+    // Separator
+    const sep = document.createElement('div');
+    sep.className = 'dc-sep';
+    card.appendChild(sep);
 
     // "leaves" label
-    svg += `<text x="${x + cellW/2}" y="130" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="600" fill="var(--text3)" letter-spacing="0.5">LEAVES</text>`;
+    const leavesLbl = document.createElement('div');
+    leavesLbl.style.cssText='font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3)';
+    leavesLbl.textContent = 'Leaves';
+    card.appendChild(leavesLbl);
 
-    // Connector arrow downward from card to formula (visual hint)
-    svg += `<line x1="${x + cellW/2}" y1="${cellH + 12}" x2="${x + cellW/2}" y2="${cellH + 26}" stroke="var(--border)" stroke-width="1.5"/>`;
-    svg += `<polygon points="${x + cellW/2 - 4},${cellH + 26} ${x + cellW/2 + 4},${cellH + 26} ${x + cellW/2},${cellH + 32}" fill="var(--text3)"/>`;
-  });
+    // The slot
+    const slot = document.createElement('div');
+    slot.className = 'dc-slot';
+    slot.id = 'slot-'+i;
+    slot.textContent = '?';
+    card.appendChild(slot);
 
-  const svgEl = document.getElementById('places-svg');
-  svgEl.setAttribute('viewBox', `0 0 ${w} ${h + 20}`);
-  svgEl.setAttribute('width', Math.min(w, 820));
-  svgEl.innerHTML = svg;
-}
-
-function render(){
-  buildPresets();
-  renderPlaces();
-
-  const digits = String(state.n).split('').map(Number);
-  const D = state.mode === '9' ? 9 : 11;
-
-  // Compute accumulator
-  let acc = 0;
-  const pieces = [];
-  digits.forEach((d, i) => {
-    const posFromUnits = digits.length - 1 - i;
-    const sign = state.mode === '9' ? +1 : (posFromUnits % 2 === 0 ? +1 : -1);
-    acc += sign * d;
-    pieces.push({ d, sign });
-  });
-
-  // Build formula HTML
-  let formula = '';
-  pieces.forEach((p, i) => {
-    if(i === 0){
-      formula += `<span class="${p.sign === +1 ? 'pos' : 'neg'}">${p.sign === -1 ? '−' : ''}${p.d}</span>`;
+    // Interaction controls
+    if(mode===9){
+      // For mod-9: each digit just leaves itself. Show a "Confirm: +d" button
+      const btn = document.createElement('button');
+      btn.className = 'confirm-btn';
+      btn.id = 'btn-'+i;
+      btn.textContent = correct === 0 ? 'Leaves 0' : `Leaves +${correct}`;
+      btn.addEventListener('click',()=>confirmSlot(i, correct, correct));
+      card.appendChild(btn);
     } else {
-      formula += ` <span class="${p.sign === +1 ? 'pos' : 'neg'}">${p.sign === +1 ? '+' : '−'} ${p.d}</span>`;
+      // For mod-11: student picks + or −
+      const btns = document.createElement('div');
+      btns.className = 'sign-btns';
+
+      const plusBtn = document.createElement('button');
+      plusBtn.className = 'sign-btn plus';
+      plusBtn.textContent = '+';
+      plusBtn.title = 'This position leaves +1 per unit of the digit';
+      plusBtn.addEventListener('click', ()=>trySign(i, +1, correct, d));
+
+      const minusBtn = document.createElement('button');
+      minusBtn.className = 'sign-btn minus';
+      minusBtn.textContent = '−';
+      minusBtn.title = 'This position leaves −1 per unit of the digit';
+      minusBtn.addEventListener('click', ()=>trySign(i, -1, correct, d));
+
+      btns.appendChild(plusBtn);
+      btns.appendChild(minusBtn);
+      card.appendChild(btns);
     }
+
+    strip.appendChild(card);
   });
-  formula += ` <span class="eq">=</span> <span class="out">${acc}</span>`;
-  document.getElementById('acc-formula').innerHTML = formula;
-  document.getElementById('acc-title').textContent = state.mode === '9'
-    ? 'Add up the "+1" leftovers from each digit'
-    : 'Add the units/hundreds/… digits, subtract the tens/thousands/…';
+}
 
-  // Reduction chain — keep applying the digit-sum (mod 9 case)
-  // For 11: just keep adding/subtracting alternating digits of |acc| until single signed digit in [-10..10]? Actually for 11, the rule is: difference of alternating sums; reduce by mod 11.
-  let chain = [acc];
-  if(state.mode === '9'){
-    let x = Math.abs(acc);
-    while(x >= 10){
-      x = String(x).split('').reduce((a, b) => a + (+b), 0);
-      chain.push(x);
-    }
+function trySign(idx, chosenSign, correctVal, digit){
+  const sign = getSign(getDigits().length - 1 - idx);
+  if(chosenSign === sign){
+    confirmSlot(idx, digit * chosenSign, correctVal);
   } else {
-    // For 11: take acc, reduce mod 11 by repeatedly applying alternating-sum on |acc|
-    let x = acc;
-    while(Math.abs(x) >= 11){
-      // Apply alternating-sum reduction to |x|, then keep original sign
-      const absDigits = String(Math.abs(x)).split('').map(Number);
-      let red = 0;
-      absDigits.slice().reverse().forEach((d, i) => {
-        red += (i % 2 === 0 ? +1 : -1) * d;
-      });
-      x = (x < 0 ? -red : red);
-      chain.push(x);
-    }
-  }
-
-  // Render step strip
-  let stepHTML = '<span class="step-label">Reduce until below ' + D + '</span>';
-  chain.forEach((v, i) => {
-    if(i > 0) stepHTML += '<span class="arrow">→</span>';
-    stepHTML += `<span class="step-chip ${i === chain.length - 1 ? 'final' : ''}">${v}</span>`;
-  });
-  document.getElementById('step-strip').innerHTML = stepHTML;
-
-  // Remainder mod D
-  const last = chain[chain.length - 1];
-  const rem = ((last % D) + D) % D;
-  document.getElementById('remainder').textContent = rem;
-
-  const divisible = rem === 0;
-  const vb = document.getElementById('verdict');
-  vb.className = 'verdict-badge ' + (divisible ? 'yes' : 'no');
-  vb.textContent = divisible ? `÷ ${D} CLEANLY` : `REMAINDER ${rem}`;
-
-  // Insight text
-  const ins = document.getElementById('insight');
-  if(state.mode === '9'){
-    ins.innerHTML = `Each place value (1, 10, 100, 1000…) is exactly <strong>1 more than a multiple of 9</strong>. When you multiply by a digit and add, all the "multiple-of-9" parts vanish in the division — what remains is just the <strong>digit sum</strong>. That's why ${state.n}'s remainder mod 9 equals the reduced digit sum (${rem}).`;
-  } else {
-    ins.innerHTML = `Place values alternate around multiples of 11: <strong>units = +1, tens = −1, hundreds = +1, thousands = −1</strong>, and so on. The signed digit sum gives the remainder mod 11. For ${state.n} that lands on ${rem}.`;
+    // Wrong — shake card
+    const card = document.getElementById('card-'+idx);
+    card.classList.remove('wrong-anim');
+    void card.offsetWidth;
+    card.classList.add('wrong-anim');
+    setTimeout(()=>card.classList.remove('wrong-anim'), 400);
   }
 }
 
+function confirmSlot(idx, value, correctVal){
+  filled[idx] = value;
+
+  // Update slot display
+  const slot = document.getElementById('slot-'+idx);
+  slot.textContent = value > 0 ? '+'+value : value;
+  slot.className = 'dc-slot filled ' + (value > 0 ? 'pos' : value < 0 ? 'neg' : 'pos');
+
+  // Lock card
+  const card = document.getElementById('card-'+idx);
+  card.classList.add('correct');
+
+  // Disable buttons
+  const btn = document.getElementById('btn-'+idx);
+  if(btn) btn.disabled = true;
+  card.querySelectorAll('.sign-btn').forEach(b=>b.disabled=true);
+
+  updateAccum();
+  updateHint();
+  checkDone();
+}
+
+function updateAccum(){
+  const digits = getDigits();
+  const sumEl  = document.getElementById('acc-sum');
+  const chainEl= document.getElementById('chain-strip');
+  const accLbl = document.getElementById('acc-lbl');
+
+  accLbl.textContent = mode===9
+    ? 'Sum of digits (what each place leaves behind)'
+    : 'Alternating sum (+ for even positions, − for odd)';
+
+  let terms = '';
+  let total = 0;
+  let allFilled = true;
+
+  digits.forEach((d, i)=>{
+    const v = filled[i];
+    if(i > 0) terms += `<span class="acc-term op">+</span>`;
+    if(v === null){
+      allFilled = false;
+      terms += `<span class="acc-term pending">?</span>`;
+    } else {
+      total += v;
+      const cls = v >= 0 ? 'pos' : 'neg';
+      terms += `<span class="acc-term ${cls}">${v>=0?'+'+v:v}</span>`;
+    }
+  });
+
+  if(allFilled){
+    terms += `<span class="acc-term op">=</span><span class="acc-term total">${total}</span>`;
+  }
+  sumEl.innerHTML = terms;
+
+  // Reduction chain
+  if(allFilled){
+    let chain = [total];
+    if(mode===9){
+      let x = Math.abs(total);
+      while(x >= 10){
+        x = String(x).split('').reduce((a,b)=>a+(+b),0);
+        chain.push(x);
+      }
+    } else {
+      let x = total;
+      while(Math.abs(x) >= 11){
+        const ad = String(Math.abs(x)).split('').map(Number);
+        let r=0;
+        ad.slice().reverse().forEach((dd,ii)=>r+=(ii%2===0?1:-1)*dd);
+        x = (x<0?-r:r);
+        chain.push(x);
+      }
+    }
+    let chipHTML = '';
+    chain.forEach((v,i)=>{
+      if(i>0) chipHTML+='<span class="chain-arr">→</span>';
+      chipHTML+=`<span class="chain-chip ${i===chain.length-1?'final':''}">${v}</span>`;
+    });
+    chainEl.innerHTML = chipHTML;
+    return {chain, total};
+  } else {
+    chainEl.innerHTML = '';
+    return null;
+  }
+}
+
+function checkDone(){
+  if(filled.some(v=>v===null)) return;
+  const digits = getDigits();
+  let total = filled.reduce((a,b)=>a+b,0);
+
+  // Compute final remainder
+  const rem = ((total % mode) + mode) % mode;
+  document.getElementById('rem-val').textContent = rem;
+  const vb = document.getElementById('vbadge');
+  if(rem===0){
+    vb.className='vbadge yes';
+    vb.textContent=`÷${mode} exactly!`;
+  } else {
+    vb.className='vbadge no';
+    vb.textContent=`Remainder = ${rem}`;
+  }
+  document.getElementById('verdict-row').style.display='flex';
+
+  // Insight
+  const ins = document.getElementById('insight');
+  if(mode===9){
+    ins.innerHTML = `<strong>Why it works:</strong> 10 = 9+1, 100 = 99+1 = 11×9+1, 1000 = 999+1 = 111×9+1. Every place value is "some multiple of 9, plus 1." When you multiply by a digit and divide by 9, the multiple-of-9 part gives zero remainder — only the digit itself remains. So <strong>the total remainder = the digit sum mod 9 = ${rem}</strong>.`;
+  } else {
+    ins.innerHTML = `<strong>Why it works:</strong> 1 = 11×0+1 (leaves +1), 10 = 11×1−1 (leaves −1), 100 = 11×9+1 (leaves +1), 1000 = 11×91−1 (leaves −1). The signs <em>alternate</em> because 10 ≡ −1 (mod 11), so each step flips the sign. The <strong>alternating digit sum mod 11 = ${rem}</strong>.`;
+  }
+}
+
+function updateHint(){
+  const remaining = filled.filter(v=>v===null).length;
+  const hint = document.getElementById('progress-hint');
+  if(remaining === 0){
+    hint.textContent = '✓ All done — see the result below!';
+    hint.style.color = 'var(--sage)';
+  } else {
+    hint.textContent = `${remaining} card${remaining>1?'s':''} left to fill in →`;
+    hint.style.color = 'var(--ink3)';
+  }
+}
+
+// ══════════════════════════════════════════════
+// NUMBER INPUT
+// ══════════════════════════════════════════════
+document.getElementById('num-input').addEventListener('input', e=>{
+  const v = parseInt(e.target.value);
+  if(!isNaN(v) && v>=1 && v<=999999){
+    number = v;
+    render();
+  }
+});
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+updateConcept();
 render();
 </script>
 </body>
