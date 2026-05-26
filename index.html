@@ -5,520 +5,455 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Place-Value Remainders — Ganita Prakash Grade 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --paper:#faf8f4; --paper2:#f3f0ea; --paper3:#e8e3d8;
-  --ink:#1c1a16;   --ink2:#4a4640;   --ink3:#8a8580;
-  --rule:#d4cfc5;
-  --teal:#1d6a72;  --teal2:#2a8a94;  --teal-bg:#e8f4f5;
-  --rust:#b84a2a;  --rust-bg:#fdf0ec;
-  --gold:#c08030;  --gold-bg:#fdf5e8;
-  --sage:#3a6a48;  --sage-bg:#eaf2ec;
-  --font:'DM Sans',sans-serif;
-  --serif:'Lora',Georgia,serif;
+  --void:#07080a;
+  --deep:#0c0e12;
+  --surface:#10141a;
+  --panel:#141820;
+  --border:#1c2430;
+  --border2:#243040;
+  --green:#28e090;
+  --green-glow:rgba(40,224,144,.18);
+  --green-dim:#0a6030;
+  --amber:#e8b020;
+  --amber-glow:rgba(232,176,32,.15);
+  --red:#e84040;
+  --red-glow:rgba(232,64,64,.15);
+  --blue:#3090f0;
+  --dim:#3a5070;
+  --dimmer:#202c3a;
+  --white:#d0e8ff;
+  --sans:'Syne',system-ui,sans-serif;
   --mono:'DM Mono',ui-monospace,monospace;
-  --shadow:0 2px 12px rgba(28,26,22,.08);
 }
-body{font-family:var(--font);background:var(--paper);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;padding:28px 20px 60px;line-height:1.6;background-image:radial-gradient(circle at 20% 30%,rgba(192,128,48,.04) 0,transparent 50%),radial-gradient(circle at 80% 70%,rgba(29,106,114,.04) 0,transparent 50%)}
-.app{max-width:900px;margin:0 auto}
-
-.header{margin-bottom:24px;padding-bottom:18px;border-bottom:1.5px solid var(--rule)}
-.chapter-badge{display:inline-flex;align-items:center;gap:8px;background:var(--paper2);border:1.5px solid var(--rule);border-radius:20px;padding:4px 14px 4px 10px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
-.badge-num{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700;font-family:var(--mono);display:flex;align-items:center;justify-content:center}
-h1{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.3px;line-height:1.2;margin-bottom:5px}
-.header-sub{font-size:14px;color:var(--ink2);max-width:560px;line-height:1.55}
-
-.card{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}
-
-.concept{background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 16px;margin-bottom:20px;font-family:var(--serif);font-style:italic;font-size:14px;color:#4a3010;line-height:1.65}
-.concept strong{font-style:normal;font-weight:700;color:#3a2008}
-
-/* Mode tabs */
-.tabs{display:flex;gap:3px;background:var(--paper2);border:1.5px solid var(--rule);border-radius:12px;padding:4px;margin-bottom:20px}
-.tab{flex:1;padding:10px;border:none;background:transparent;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;transition:all .15s;text-align:center}
-.tab:hover{color:var(--ink2)}
-.tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(28,26,22,.10);border:1.5px solid var(--rule)}
-
-/* Number picker */
-.num-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.num-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);white-space:nowrap}
-.num-input{width:160px;text-align:center;background:#fff;border:1.5px solid var(--rule);border-radius:9px;color:var(--ink);padding:8px;font-size:22px;font-family:var(--mono);outline:none;font-weight:800;transition:border-color .15s}
-.num-input:focus{border-color:var(--teal)}
-
-.preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-.psc{padding:5px 11px;background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .12s}
-.psc:hover{border-color:var(--teal);color:var(--teal)}
-
-/* ── DIGIT CARDS ── */
-.digit-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;flex-wrap:nowrap}
-
-.digit-card{
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-  background:#fff;border:2px solid var(--rule);border-radius:12px;
-  padding:12px 10px 10px;min-width:90px;flex-shrink:0;
-  transition:all .25s;position:relative
+html,body{width:100%;height:100%;overflow:hidden}
+body{
+  font-family:var(--sans);
+  background:var(--void);
+  color:var(--white);
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  position:fixed;inset:0;
 }
-.digit-card.correct{border-color:#8abcaa;background:var(--sage-bg)}
-.digit-card.wrong-anim{animation:shake .35s ease}
+body::after{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px);
+  pointer-events:none;z-index:1;
+}
+
+/* ── HEADER ── */
+.top{
+  position:relative;z-index:10;
+  border-bottom:1px solid var(--border);
+  background:var(--deep);
+  height:46px;flex-shrink:0;
+  display:flex;align-items:center;padding:0 18px;gap:0;
+}
+.top-badge{
+  display:flex;align-items:center;gap:7px;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+  border-right:1px solid var(--border);padding-right:14px;margin-right:14px;font-family:var(--mono);
+}
+.tb-num{width:18px;height:18px;border-radius:2px;background:rgba(40,224,144,.15);border:1px solid var(--green-dim);color:var(--green);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.top-title{font-size:17px;font-weight:800;color:var(--white);letter-spacing:-.02em;flex:1}
+.top-tabs{display:flex;gap:0}
+.ttab{
+  height:46px;padding:0 16px;
+  border:none;background:transparent;
+  font-family:var(--sans);font-size:12px;font-weight:700;
+  color:var(--dim);cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all .14s;letter-spacing:.03em;
+}
+.ttab:hover{color:var(--white)}
+.ttab.active{color:var(--green);border-bottom-color:var(--green)}
+.top-num-area{
+  border-left:1px solid var(--border);padding:0 14px;
+  display:flex;align-items:center;gap:10px;
+}
+.tna-lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--mono)}
+.num-input{
+  width:140px;padding:4px 10px;
+  border:1px solid var(--border2);border-radius:2px;
+  background:var(--surface);color:var(--green);
+  font-family:var(--mono);font-size:18px;font-weight:700;
+  outline:none;text-align:center;
+  transition:border-color .14s;
+}
+.num-input:focus{border-color:var(--green)}
+
+/* ── MAIN ── */
+.main{
+  flex:1;display:grid;
+  grid-template-columns:1fr 260px;
+  overflow:hidden;min-height:0;
+  position:relative;z-index:5;
+}
+
+/* ── LEFT: DIGIT CARDS + ACCUMULATOR ── */
+.left{
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  border-right:1px solid var(--border);
+}
+
+/* CONCEPT bar */
+.concept-bar{
+  padding:10px 16px;
+  border-bottom:1px solid var(--border);
+  background:var(--deep);
+  font-size:11px;color:var(--dim);
+  line-height:1.6;font-family:var(--mono);
+  flex-shrink:0;
+}
+.concept-bar strong{color:var(--amber)}
+
+/* presets */
+.preset-bar{
+  padding:8px 16px;border-bottom:1px solid var(--border);
+  background:var(--surface);
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  flex-shrink:0;
+}
+.pb-lbl{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);white-space:nowrap}
+.psc{
+  padding:3px 9px;background:var(--deep);border:1px solid var(--border2);border-radius:2px;
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--dim);
+  cursor:pointer;transition:all .12s;
+}
+.psc:hover{border-color:var(--green);color:var(--green)}
+
+/* digit cards */
+.cards-area{
+  flex:1;overflow-y:auto;overflow-x:auto;
+  padding:16px;
+  display:flex;align-items:flex-start;gap:10px;
+  flex-wrap:nowrap;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.cards-area::-webkit-scrollbar{height:3px}
+.cards-area::-webkit-scrollbar-thumb{background:var(--border)}
+
+/* individual digit card */
+.dcard{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:var(--surface);border:1px solid var(--border2);
+  padding:10px 8px 8px;
+  width:88px;flex-shrink:0;
+  transition:all .22s;
+  position:relative;
+}
+.dcard.solved{border-color:var(--green);background:rgba(40,224,144,.05)}
+.dcard.shake{animation:shake .35s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-.dc-place{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3)}
-.dc-digit{font-family:var(--mono);font-size:30px;font-weight:800;color:var(--ink);line-height:1}
-.dc-rule{font-family:var(--mono);font-size:10px;color:var(--ink3);text-align:center;line-height:1.3;min-height:28px;display:flex;align-items:center}
-.dc-sep{width:60px;height:1.5px;background:var(--rule);margin:2px 0}
-
-/* The "leaves" slot — clickable or display */
-.dc-slot{
-  width:56px;height:40px;border:2px solid var(--rule);border-radius:8px;
+.dc-place{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-family:var(--mono)}
+.dc-digit{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--white);line-height:1;text-shadow:0 0 20px rgba(208,232,255,.2)}
+.dc-sep{width:56px;height:1px;background:var(--border2)}
+.dc-rule{font-size:9px;color:var(--dim);font-family:var(--mono);text-align:center;line-height:1.4;min-height:30px;display:flex;align-items:center;justify-content:center}
+.dc-slot-wrap{
+  width:60px;height:36px;
+  background:var(--deep);border:1px solid var(--border2);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:20px;font-weight:800;
-  background:var(--paper2);color:var(--ink3);
-  transition:all .2s;position:relative;overflow:hidden
+  font-family:var(--mono);font-size:20px;font-weight:700;
+  color:var(--dim);transition:all .2s;
 }
-.dc-slot.filled{background:#fff;color:var(--ink)}
-.dc-slot.filled.pos{color:var(--sage);border-color:#8abcaa;background:var(--sage-bg)}
-.dc-slot.filled.neg{color:var(--rust);border-color:#e0a898;background:var(--rust-bg)}
+.dc-slot-wrap.filled-pos{border-color:var(--green);background:rgba(40,224,144,.1);color:var(--green);text-shadow:0 0 10px var(--green)}
+.dc-slot-wrap.filled-neg{border-color:var(--red);background:rgba(232,64,64,.1);color:var(--red)}
 
-/* For mod-9: single "confirm" button  */
 .confirm-btn{
-  padding:4px 10px;border:1.5px solid var(--teal);border-radius:20px;
-  background:var(--teal-bg);color:var(--teal);font-family:var(--font);
-  font-size:11px;font-weight:700;cursor:pointer;transition:all .12s;white-space:nowrap
+  padding:4px 10px;background:transparent;
+  border:1px solid var(--green-dim);border-radius:2px;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  color:var(--green);cursor:pointer;letter-spacing:.04em;
+  transition:all .12s;
 }
-.confirm-btn:hover{background:var(--teal);color:#fff}
-.confirm-btn:disabled{opacity:.35;cursor:default}
+.confirm-btn:hover:not(:disabled){background:rgba(40,224,144,.12);box-shadow:0 0 10px var(--green-glow)}
+.confirm-btn:disabled{opacity:.25;cursor:not-allowed}
 
-/* For mod-11: +1 / −1 choice buttons */
 .sign-btns{display:flex;gap:4px}
 .sign-btn{
-  width:36px;height:32px;border-radius:7px;border:1.5px solid;
-  font-family:var(--mono);font-size:14px;font-weight:800;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .14s
+  width:32px;height:28px;border-radius:2px;
+  font-family:var(--mono);font-size:16px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .14s;border:1px solid;
 }
-.sign-btn.plus{background:var(--sage-bg);border-color:#8abcaa;color:var(--sage)}
-.sign-btn.plus:hover{background:var(--sage);color:#fff}
-.sign-btn.minus{background:var(--rust-bg);border-color:#e0a898;color:var(--rust)}
-.sign-btn.minus:hover{background:var(--rust);color:#fff}
-.sign-btn:disabled{opacity:.3;cursor:default}
+.sign-btn.plus{background:rgba(40,224,144,.1);border-color:var(--green-dim);color:var(--green)}
+.sign-btn.plus:hover:not(:disabled){background:rgba(40,224,144,.2);box-shadow:0 0 8px var(--green-glow)}
+.sign-btn.minus{background:rgba(232,64,64,.1);border-color:#501818;color:var(--red)}
+.sign-btn.minus:hover:not(:disabled){background:rgba(232,64,64,.2);box-shadow:0 0 8px var(--red-glow)}
+.sign-btn:disabled{opacity:.25;cursor:not-allowed}
 
-/* ── ACCUMULATOR ── */
-.acc-box{background:var(--paper2);border:1.5px solid var(--rule);border-radius:12px;padding:16px 18px;margin-bottom:14px}
-.acc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink3);margin-bottom:8px}
-.acc-sum{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--mono);font-size:16px;font-weight:700;margin-bottom:10px;min-height:28px}
-.acc-term{padding:3px 8px;border-radius:6px;font-weight:800}
-.acc-term.pos{background:var(--sage-bg);color:var(--sage)}
-.acc-term.neg{background:var(--rust-bg);color:var(--rust)}
-.acc-term.op{color:var(--ink3);background:none;padding:0 2px;font-weight:600}
-.acc-term.pending{background:var(--paper3);color:var(--ink3)}
-.acc-term.total{font-size:20px;color:var(--teal);border:1.5px solid var(--teal2);border-radius:8px;padding:3px 12px;background:var(--teal-bg)}
+/* accumulator */
+.acc-area{
+  padding:12px 16px;border-top:1px solid var(--border);
+  background:var(--deep);flex-shrink:0;
+}
+.acc-lbl{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:7px}
+.acc-sum{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-family:var(--mono);font-size:14px;font-weight:700;min-height:26px}
+.at-pos{padding:2px 7px;background:rgba(40,224,144,.1);border:1px solid var(--green-dim);color:var(--green);border-radius:2px}
+.at-neg{padding:2px 7px;background:rgba(232,64,64,.1);border:1px solid #501818;color:var(--red);border-radius:2px}
+.at-op{color:var(--dim);padding:0 2px}
+.at-pending{padding:2px 7px;background:var(--surface);border:1px solid var(--border2);color:var(--dim);border-radius:2px}
+.at-total{padding:3px 12px;background:rgba(48,144,240,.12);border:1px solid #1a4880;color:var(--blue);font-size:18px;border-radius:2px}
+.chain-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:7px}
+.chain-chip{padding:3px 9px;background:var(--surface);border:1px solid var(--border2);font-family:var(--mono);font-size:12px;font-weight:700;color:var(--dim);border-radius:2px}
+.chain-chip.final{background:rgba(40,224,144,.15);border-color:var(--green);color:var(--green);box-shadow:0 0 10px var(--green-glow)}
+.chain-arr{color:var(--dim);font-family:var(--mono);font-size:10px}
 
-/* Reduction chain */
-.chain-strip{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.chain-chip{padding:5px 11px;border-radius:7px;font-family:var(--mono);font-size:13px;font-weight:700;border:1.5px solid var(--rule);background:#fff;color:var(--ink2)}
-.chain-chip.final{background:var(--teal);border-color:var(--teal);color:#fff}
-.chain-arr{color:var(--ink3);font-size:14px}
+/* ── RIGHT PANEL ── */
+.right{
+  display:flex;flex-direction:column;
+  background:var(--panel);overflow:hidden;
+}
+.rp{padding:12px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.rp-lbl{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:8px}
 
-/* Verdict */
-.verdict-row{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:14px 18px;background:#fff;border:1.5px solid var(--rule);border-radius:11px;margin-top:4px}
-.vstat{text-align:center}
-.vs-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink3);margin-bottom:3px}
-.vs-val{font-family:var(--mono);font-size:26px;font-weight:800;color:var(--ink);line-height:1}
-.vbadge{padding:10px 18px;border-radius:9px;font-family:var(--mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;border:1.5px solid}
-.vbadge.yes{background:var(--sage-bg);color:var(--sage);border-color:#8abcaa}
-.vbadge.no{background:var(--rust-bg);color:var(--rust);border-color:#e0a898}
+/* verdict */
+.verdict{
+  padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;
+  border-bottom:1px solid var(--border);flex-shrink:0;display:none;
+}
+.verdict.show{display:flex}
+.vd-eq{font-family:var(--mono);font-size:10px;color:var(--dim);text-align:center}
+.vd-rem{font-family:var(--mono);font-size:48px;font-weight:700;line-height:1;transition:all .25s}
+.vd-rem.zero{color:var(--green);text-shadow:0 0 30px var(--green-glow)}
+.vd-rem.nonzero{color:var(--amber);text-shadow:0 0 20px var(--amber-glow)}
+.vd-badge{
+  padding:6px 16px;font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.08em;border:1px solid;border-radius:2px;
+}
+.vd-badge.yes{background:rgba(40,224,144,.1);border-color:var(--green);color:var(--green)}
+.vd-badge.no{background:rgba(232,176,32,.1);border-color:var(--amber);color:var(--amber)}
 
-/* Progress hint */
-.progress-hint{font-size:12px;color:var(--ink3);text-align:center;margin:8px 0;font-style:italic}
+/* explanation */
+.explain{
+  flex:1;padding:12px 14px;overflow-y:auto;
+  font-size:10px;color:var(--dim);font-family:var(--mono);line-height:1.75;
+}
+.explain strong{color:var(--amber)}
+.explain .eg{padding:4px 8px;background:var(--surface);border-left:2px solid var(--green);margin:6px 0;font-size:9px;line-height:1.7}
 
-.insight{background:var(--gold-bg);border:1px solid #e0c080;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 15px;font-size:13px;color:#6b4400;line-height:1.65;margin-top:14px}
-.insight strong{color:#4a2e00}
+/* hint */
+.hint-bar{padding:7px 14px;border-top:1px solid var(--border);font-size:9px;color:var(--dimmer);font-family:var(--mono);text-align:center;flex-shrink:0}
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="header">
-    <div class="chapter-badge"><div class="badge-num">5</div>Chapter 5 · Playing with Numbers</div>
-    <h1>Place-Value Remainders</h1>
-    <p class="header-sub">Why does adding digits check divisibility by 9? Why alternating digits for 11? Discover the pattern one digit at a time.</p>
+
+<div class="top">
+  <div class="top-badge"><div class="tb-num">5</div>CH·05 · PLAYING WITH NUMBERS</div>
+  <div class="top-title">Place-Value Remainders</div>
+  <div class="top-tabs">
+    <button class="ttab active" data-m="9">÷ 9 digit sum</button>
+    <button class="ttab" data-m="11">÷ 11 alt. sum</button>
+  </div>
+  <div class="top-num-area">
+    <span class="tna-lbl">Number</span>
+    <input class="num-input" id="num-input" type="number" value="7309" min="1" max="999999">
+  </div>
+</div>
+
+<div class="main">
+  <div class="left">
+    <div class="concept-bar" id="concept-bar">
+      <strong>Mode: ÷9</strong> — Each place value (1, 10, 100…) is exactly 1 more than a multiple of 9. That extra 1 × digit is all that remains. Fill every card to discover the total.
+    </div>
+    <div class="preset-bar">
+      <span class="pb-lbl">Try:</span>
+      <span id="presets"></span>
+    </div>
+    <div class="cards-area" id="cards-area"></div>
+    <div class="acc-area">
+      <div class="acc-lbl" id="acc-lbl">Sum so far</div>
+      <div class="acc-sum" id="acc-sum"></div>
+      <div class="chain-row" id="chain-row"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="concept" id="concept-text">
-      <strong>The secret:</strong> every place value (1, 10, 100, 1000…) is exactly <em>1 more than a multiple of 9</em>. So when you divide, the multiple-of-9 part vanishes — only the digit itself is left behind. Fill in what each digit leaves behind, then add them up.
+  <div class="right">
+    <div class="rp">
+      <div class="rp-lbl">Progress</div>
+      <div style="font-size:11px;color:var(--dim);font-family:var(--mono)" id="progress-txt">Fill in each card →</div>
     </div>
-
-    <div class="tabs">
-      <button class="tab active" data-mode="9">÷ 9 (digit sum)</button>
-      <button class="tab" data-mode="11">÷ 11 (alternating sum)</button>
+    <div class="verdict" id="verdict">
+      <div class="vd-eq" id="vd-eq">Remainder ÷ 9</div>
+      <div class="vd-rem" id="vd-rem">0</div>
+      <div class="vd-badge" id="vd-badge">—</div>
     </div>
-
-    <div class="num-row">
-      <span class="num-lbl">Number:</span>
-      <input class="num-input" id="num-input" type="number" value="7309" min="1" max="999999">
+    <div class="explain" id="explain">
+      <strong>How it works (÷9):</strong>
+      <div class="eg">10 = 1×9 + 1 → leaves digit</div>
+      <div class="eg">100 = 11×9 + 1 → leaves digit</div>
+      <div class="eg">1000 = 111×9 + 1 → leaves digit</div>
+      Each place value is "multiple of 9 + 1". Multiply by digit d: the 9-part vanishes, only d remains. <strong>Total remainder = digit sum mod 9.</strong>
     </div>
-    <div class="preset-row" id="preset-row"></div>
-
-    <!-- Digit cards strip -->
-    <div class="digit-strip" id="digit-strip"></div>
-
-    <div class="progress-hint" id="progress-hint">Fill in each card to see the sum →</div>
-
-    <!-- Accumulator -->
-    <div class="acc-box">
-      <div class="acc-lbl" id="acc-lbl">What each digit leaves behind</div>
-      <div class="acc-sum" id="acc-sum"></div>
-      <div class="chain-strip" id="chain-strip"></div>
-    </div>
-
-    <div class="verdict-row" id="verdict-row" style="display:none">
-      <div class="vstat">
-        <div class="vs-lbl">Remainder ÷ <span id="divisor-lbl">9</span></div>
-        <div class="vs-val" id="rem-val">0</div>
-      </div>
-      <div class="vbadge" id="vbadge">—</div>
-    </div>
-
-    <div class="insight" id="insight"></div>
+    <div class="hint-bar" id="hint-bar">fill cards left to right</div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════
-let mode = 9;
-let number = 7309;
-let filled = [];   // null = not yet filled, value = what student entered
+let mode=9,number=7309;
+let filled=[];
+const PRESETS9=[405,8888,7309,93547,6003,358095];
+const PRESETS11=[5324,2728,841,90904,462,38192];
 
-const PRESETS_9  = [405, 8888, 7309, 93547, 6003, 358095];
-const PRESETS_11 = [5324, 2728, 841, 90904, 462, 38192];
-
-// ══════════════════════════════════════════════
-// TABS
-// ══════════════════════════════════════════════
-document.querySelectorAll('.tab').forEach(tab=>{
+document.querySelectorAll('.ttab').forEach(tab=>{
   tab.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.ttab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    mode = +tab.dataset.mode;
-    updateConcept();
-    render();
+    mode=+tab.dataset.m;
+    updateConcept();render();
   });
 });
 
 function updateConcept(){
-  const el = document.getElementById('concept-text');
+  const bar=document.getElementById('concept-bar');
   if(mode===9){
-    el.innerHTML = '<strong>The secret:</strong> every place value (1, 10, 100, 1000…) is exactly <em>1 more than a multiple of 9</em>. When you divide, the multiple-of-9 part vanishes — only the digit itself is left. Fill in what each digit leaves behind, then add them up.';
+    bar.innerHTML='<strong>Mode: ÷9</strong> — Each place value (1, 10, 100…) is exactly 1 more than a multiple of 9. That extra 1 × digit is all that remains. Fill each card.';
+    document.getElementById('acc-lbl').textContent='Sum of digits';
+    document.getElementById('explain').innerHTML='<strong>How it works (÷9):</strong><div class="eg">10 = 1×9 + 1 → leaves digit × 1</div><div class="eg">100 = 11×9 + 1 → leaves digit × 1</div><div class="eg">1000 = 111×9 + 1 → leaves digit × 1</div>Every place value = multiple of 9 + 1. The 9-part vanishes. <strong>Remainder = digit sum mod 9.</strong>';
   } else {
-    el.innerHTML = '<strong>The secret:</strong> place values <em>alternate</em> around multiples of 11: 1 = (0×11)+<strong>1</strong>, 10 = (1×11)−<strong>1</strong>, 100 = (9×11)+<strong>1</strong>, 1000 = (91×11)−<strong>1</strong>… Each position leaves either +1 or −1. Click the correct sign for each digit.';
+    bar.innerHTML='<strong>Mode: ÷11</strong> — Place values alternate: 1 leaves +1, 10 leaves −1, 100 leaves +1, 1000 leaves −1… Click the correct sign (+/−) for each digit.';
+    document.getElementById('acc-lbl').textContent='Alternating sum';
+    document.getElementById('explain').innerHTML='<strong>How it works (÷11):</strong><div class="eg">1 = 0×11 + 1 → leaves +1</div><div class="eg">10 = 1×11 − 1 → leaves −1</div><div class="eg">100 = 9×11 + 1 → leaves +1</div>Signs alternate because 10 ≡ −1 (mod 11). <strong>Remainder = alternating digit sum mod 11.</strong>';
   }
+  document.getElementById('vd-eq').textContent='Remainder ÷ '+mode;
 }
 
-// ══════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════
-function sup(n){
-  return String(n).split('').map(c=>({'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}[c]||c)).join('');
-}
-function placeName(pos){ // pos from units = 0
-  if(pos===0) return 'Units';
-  if(pos===1) return 'Tens';
-  if(pos===2) return 'Hundreds';
-  if(pos===3) return 'Thousands';
-  if(pos===4) return '10 Thousands';
-  return '100 Thousands';
-}
-function getDigits(){ return String(number).split('').map(Number); }
-function getSign(posFromUnits){
-  if(mode===9) return +1;
-  return posFromUnits%2===0 ? +1 : -1;
-}
-function getCorrect(digit, posFromUnits){
-  return digit * getSign(posFromUnits);
-}
-function getRuleText(posFromUnits){
-  const pv = Math.pow(10, posFromUnits);
-  if(mode===9){
-    return pv===1 ? '1 = 0×9 + 1' : `${pv} = ${pv-1}×1 + 1\n(=${((pv-1)/9).toFixed(0)}×9 + 1)`;
-  } else {
-    const sign = getSign(posFromUnits);
-    if(sign===+1) return `${pv} = ${(pv-1)/11|0}×11 + 1`;
-    else          return `${pv} = ${(pv+1)/11|0}×11 − 1`;
-  }
+function getDigits(){return String(number).split('').map(Number);}
+function getSign(posFromUnits){return mode===9?+1:posFromUnits%2===0?+1:-1;}
+function placeName(p){return['Units','Tens','Hundreds','Thousands','10 Thou.','100 Thou.'][p]||`10^${p}`;}
+function getRuleText(p){
+  const pv=Math.pow(10,p);
+  if(mode===9){return p===0?'1 = 0×9 + 1':`${pv} = ${(pv-1)/9|0}×9 + 1`;}
+  const s=getSign(p);
+  return s>0?`${pv} = ${(pv-1)/11|0}×11 + 1`:`${pv} = ${(pv+1)/11|0}×11 − 1`;
 }
 
-// ══════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════
 function render(){
-  const digits = getDigits();
-  filled = Array(digits.length).fill(null);
+  const digits=getDigits();
+  filled=Array(digits.length).fill(null);
+  document.getElementById('verdict').classList.remove('show');
 
   // Presets
-  const presets = mode===9 ? PRESETS_9 : PRESETS_11;
-  document.getElementById('preset-row').innerHTML = presets.map(v=>
-    `<button class="psc" data-v="${v}">${v}</button>`
-  ).join('');
+  const ps=mode===9?PRESETS9:PRESETS11;
+  document.getElementById('presets').innerHTML=ps.map(v=>`<button class="psc" data-v="${v}">${v}</button>`).join('');
   document.querySelectorAll('.psc').forEach(b=>{
-    b.addEventListener('click',()=>{
-      number = +b.dataset.v;
-      document.getElementById('num-input').value = number;
-      render();
-    });
+    b.addEventListener('click',()=>{number=+b.dataset.v;document.getElementById('num-input').value=number;render();});
   });
 
-  document.getElementById('divisor-lbl').textContent = mode;
-  document.getElementById('verdict-row').style.display='none';
-  updateAccum();
   buildCards();
-  updateHint();
+  updateAccum();
+  updateProgress();
 }
 
 function buildCards(){
-  const digits = getDigits();
-  const strip = document.getElementById('digit-strip');
-  strip.innerHTML = '';
+  const digits=getDigits();
+  const area=document.getElementById('cards-area');
+  area.innerHTML='';
+  digits.forEach((d,i)=>{
+    const posFromUnits=digits.length-1-i;
+    const sign=getSign(posFromUnits);
+    const correct=d*sign;
 
-  digits.forEach((d, i)=>{
-    const posFromUnits = digits.length - 1 - i;
-    const sign = getSign(posFromUnits);
-    const correct = getCorrect(d, posFromUnits);
-    const pv = Math.pow(10, posFromUnits);
+    const card=document.createElement('div');
+    card.className='dcard';card.id='dc-'+i;
 
-    const card = document.createElement('div');
-    card.className = 'digit-card';
-    card.id = 'card-'+i;
+    const pl=document.createElement('div');pl.className='dc-place';pl.textContent=placeName(posFromUnits);card.appendChild(pl);
+    const dg=document.createElement('div');dg.className='dc-digit';dg.textContent=d;card.appendChild(dg);
+    const sp=document.createElement('div');sp.className='dc-sep';card.appendChild(sp);
+    const rl=document.createElement('div');rl.className='dc-rule';rl.style.whiteSpace='pre-line';rl.textContent=getRuleText(posFromUnits);card.appendChild(rl);
+    const sl=document.createElement('div');sl.className='dc-slot-wrap';sl.id='sl-'+i;sl.textContent='?';card.appendChild(sl);
 
-    // Place name
-    const placeEl = document.createElement('div');
-    placeEl.className = 'dc-place';
-    placeEl.textContent = placeName(posFromUnits);
-    card.appendChild(placeEl);
-
-    // Big digit
-    const digEl = document.createElement('div');
-    digEl.className = 'dc-digit';
-    digEl.textContent = d;
-    card.appendChild(digEl);
-
-    // Rule text
-    const ruleEl = document.createElement('div');
-    ruleEl.className = 'dc-rule';
-    ruleEl.style.whiteSpace = 'pre-line';
-    ruleEl.textContent = getRuleText(posFromUnits);
-    card.appendChild(ruleEl);
-
-    // Separator
-    const sep = document.createElement('div');
-    sep.className = 'dc-sep';
-    card.appendChild(sep);
-
-    // "leaves" label
-    const leavesLbl = document.createElement('div');
-    leavesLbl.style.cssText='font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3)';
-    leavesLbl.textContent = 'Leaves';
-    card.appendChild(leavesLbl);
-
-    // The slot
-    const slot = document.createElement('div');
-    slot.className = 'dc-slot';
-    slot.id = 'slot-'+i;
-    slot.textContent = '?';
-    card.appendChild(slot);
-
-    // Interaction controls
     if(mode===9){
-      // For mod-9: each digit just leaves itself. Show a "Confirm: +d" button
-      const btn = document.createElement('button');
-      btn.className = 'confirm-btn';
-      btn.id = 'btn-'+i;
-      btn.textContent = correct === 0 ? 'Leaves 0' : `Leaves +${correct}`;
-      btn.addEventListener('click',()=>confirmSlot(i, correct, correct));
+      const btn=document.createElement('button');btn.className='confirm-btn';btn.id='btn-'+i;
+      btn.textContent=correct===0?'Leaves 0':'+'+correct;
+      btn.addEventListener('click',()=>confirmSlot(i,correct));
       card.appendChild(btn);
     } else {
-      // For mod-11: student picks + or −
-      const btns = document.createElement('div');
-      btns.className = 'sign-btns';
-
-      const plusBtn = document.createElement('button');
-      plusBtn.className = 'sign-btn plus';
-      plusBtn.textContent = '+';
-      plusBtn.title = 'This position leaves +1 per unit of the digit';
-      plusBtn.addEventListener('click', ()=>trySign(i, +1, correct, d));
-
-      const minusBtn = document.createElement('button');
-      minusBtn.className = 'sign-btn minus';
-      minusBtn.textContent = '−';
-      minusBtn.title = 'This position leaves −1 per unit of the digit';
-      minusBtn.addEventListener('click', ()=>trySign(i, -1, correct, d));
-
-      btns.appendChild(plusBtn);
-      btns.appendChild(minusBtn);
+      const btns=document.createElement('div');btns.className='sign-btns';
+      const pb=document.createElement('button');pb.className='sign-btn plus';pb.textContent='+';
+      const mb=document.createElement('button');mb.className='sign-btn minus';mb.textContent='−';
+      pb.addEventListener('click',()=>trySign(i,+1,correct,d));
+      mb.addEventListener('click',()=>trySign(i,-1,correct,d));
+      btns.appendChild(pb);btns.appendChild(mb);
       card.appendChild(btns);
     }
-
-    strip.appendChild(card);
+    area.appendChild(card);
   });
 }
 
-function trySign(idx, chosenSign, correctVal, digit){
-  const sign = getSign(getDigits().length - 1 - idx);
-  if(chosenSign === sign){
-    confirmSlot(idx, digit * chosenSign, correctVal);
-  } else {
-    // Wrong — shake card
-    const card = document.getElementById('card-'+idx);
-    card.classList.remove('wrong-anim');
-    void card.offsetWidth;
-    card.classList.add('wrong-anim');
-    setTimeout(()=>card.classList.remove('wrong-anim'), 400);
+function trySign(idx,chosenSign,correctVal,digit){
+  const sign=getSign(getDigits().length-1-idx);
+  if(chosenSign===sign)confirmSlot(idx,digit*chosenSign);
+  else{
+    const card=document.getElementById('dc-'+idx);
+    card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');
+    setTimeout(()=>card.classList.remove('shake'),400);
   }
 }
 
-function confirmSlot(idx, value, correctVal){
-  filled[idx] = value;
-
-  // Update slot display
-  const slot = document.getElementById('slot-'+idx);
-  slot.textContent = value > 0 ? '+'+value : value;
-  slot.className = 'dc-slot filled ' + (value > 0 ? 'pos' : value < 0 ? 'neg' : 'pos');
-
-  // Lock card
-  const card = document.getElementById('card-'+idx);
-  card.classList.add('correct');
-
-  // Disable buttons
-  const btn = document.getElementById('btn-'+idx);
-  if(btn) btn.disabled = true;
+function confirmSlot(idx,value){
+  filled[idx]=value;
+  const sl=document.getElementById('sl-'+idx);
+  sl.textContent=value>0?'+'+value:value;
+  sl.className='dc-slot-wrap '+(value>0?'filled-pos':value<0?'filled-neg':'filled-pos');
+  const card=document.getElementById('dc-'+idx);card.classList.add('solved');
+  const btn=document.getElementById('btn-'+idx);if(btn)btn.disabled=true;
   card.querySelectorAll('.sign-btn').forEach(b=>b.disabled=true);
-
-  updateAccum();
-  updateHint();
-  checkDone();
+  updateAccum();updateProgress();checkDone();
 }
 
 function updateAccum(){
-  const digits = getDigits();
-  const sumEl  = document.getElementById('acc-sum');
-  const chainEl= document.getElementById('chain-strip');
-  const accLbl = document.getElementById('acc-lbl');
-
-  accLbl.textContent = mode===9
-    ? 'Sum of digits (what each place leaves behind)'
-    : 'Alternating sum (+ for even positions, − for odd)';
-
-  let terms = '';
-  let total = 0;
-  let allFilled = true;
-
-  digits.forEach((d, i)=>{
-    const v = filled[i];
-    if(i > 0) terms += `<span class="acc-term op">+</span>`;
-    if(v === null){
-      allFilled = false;
-      terms += `<span class="acc-term pending">?</span>`;
-    } else {
-      total += v;
-      const cls = v >= 0 ? 'pos' : 'neg';
-      terms += `<span class="acc-term ${cls}">${v>=0?'+'+v:v}</span>`;
-    }
+  const digits=getDigits();
+  const sumEl=document.getElementById('acc-sum');
+  const chainEl=document.getElementById('chain-row');
+  let html='',total=0,allFilled=true;
+  digits.forEach((d,i)=>{
+    const v=filled[i];
+    if(i>0)html+=`<span class="at-op">+</span>`;
+    if(v===null){allFilled=false;html+=`<span class="at-pending">?</span>`;}
+    else{total+=v;html+=`<span class="${v>=0?'at-pos':'at-neg'}">${v>=0?'+'+v:v}</span>`;}
   });
+  if(allFilled)html+=`<span class="at-op">=</span><span class="at-total">${total}</span>`;
+  sumEl.innerHTML=html;
 
   if(allFilled){
-    terms += `<span class="acc-term op">=</span><span class="acc-term total">${total}</span>`;
-  }
-  sumEl.innerHTML = terms;
-
-  // Reduction chain
-  if(allFilled){
-    let chain = [total];
-    if(mode===9){
-      let x = Math.abs(total);
-      while(x >= 10){
-        x = String(x).split('').reduce((a,b)=>a+(+b),0);
-        chain.push(x);
-      }
-    } else {
-      let x = total;
-      while(Math.abs(x) >= 11){
-        const ad = String(Math.abs(x)).split('').map(Number);
-        let r=0;
-        ad.slice().reverse().forEach((dd,ii)=>r+=(ii%2===0?1:-1)*dd);
-        x = (x<0?-r:r);
-        chain.push(x);
-      }
-    }
-    let chipHTML = '';
-    chain.forEach((v,i)=>{
-      if(i>0) chipHTML+='<span class="chain-arr">→</span>';
-      chipHTML+=`<span class="chain-chip ${i===chain.length-1?'final':''}">${v}</span>`;
-    });
-    chainEl.innerHTML = chipHTML;
-    return {chain, total};
-  } else {
-    chainEl.innerHTML = '';
-    return null;
-  }
+    let chain=[total];
+    if(mode===9){let x=Math.abs(total);while(x>=10){x=String(x).split('').reduce((a,b)=>a+(+b),0);chain.push(x);}}
+    else{let x=total;while(Math.abs(x)>=11){const ad=String(Math.abs(x)).split('').map(Number);let r=0;ad.slice().reverse().forEach((dd,ii)=>r+=(ii%2===0?1:-1)*dd);x=x<0?-r:r;chain.push(x);}}
+    chainEl.innerHTML=chain.map((v,i)=>`${i>0?'<span class="chain-arr">→</span>':''}<span class="chain-chip ${i===chain.length-1?'final':''}">${v}</span>`).join('');
+  } else chainEl.innerHTML='';
 }
 
 function checkDone(){
-  if(filled.some(v=>v===null)) return;
-  const digits = getDigits();
-  let total = filled.reduce((a,b)=>a+b,0);
-
-  // Compute final remainder
-  const rem = ((total % mode) + mode) % mode;
-  document.getElementById('rem-val').textContent = rem;
-  const vb = document.getElementById('vbadge');
-  if(rem===0){
-    vb.className='vbadge yes';
-    vb.textContent=`÷${mode} exactly!`;
-  } else {
-    vb.className='vbadge no';
-    vb.textContent=`Remainder = ${rem}`;
-  }
-  document.getElementById('verdict-row').style.display='flex';
-
-  // Insight
-  const ins = document.getElementById('insight');
-  if(mode===9){
-    ins.innerHTML = `<strong>Why it works:</strong> 10 = 9+1, 100 = 99+1 = 11×9+1, 1000 = 999+1 = 111×9+1. Every place value is "some multiple of 9, plus 1." When you multiply by a digit and divide by 9, the multiple-of-9 part gives zero remainder — only the digit itself remains. So <strong>the total remainder = the digit sum mod 9 = ${rem}</strong>.`;
-  } else {
-    ins.innerHTML = `<strong>Why it works:</strong> 1 = 11×0+1 (leaves +1), 10 = 11×1−1 (leaves −1), 100 = 11×9+1 (leaves +1), 1000 = 11×91−1 (leaves −1). The signs <em>alternate</em> because 10 ≡ −1 (mod 11), so each step flips the sign. The <strong>alternating digit sum mod 11 = ${rem}</strong>.`;
-  }
+  if(filled.some(v=>v===null))return;
+  const total=filled.reduce((a,b)=>a+b,0);
+  const rem=((total%mode)+mode)%mode;
+  const vd=document.getElementById('verdict');vd.classList.add('show');
+  const vrem=document.getElementById('vd-rem');vrem.textContent=rem;
+  vrem.className='vd-rem '+(rem===0?'zero':'nonzero');
+  const vb=document.getElementById('vd-badge');
+  if(rem===0){vb.className='vd-badge yes';vb.textContent='÷'+mode+' exactly!';}
+  else{vb.className='vd-badge no';vb.textContent='remainder = '+rem;}
 }
 
-function updateHint(){
-  const remaining = filled.filter(v=>v===null).length;
-  const hint = document.getElementById('progress-hint');
-  if(remaining === 0){
-    hint.textContent = '✓ All done — see the result below!';
-    hint.style.color = 'var(--sage)';
-  } else {
-    hint.textContent = `${remaining} card${remaining>1?'s':''} left to fill in →`;
-    hint.style.color = 'var(--ink3)';
-  }
+function updateProgress(){
+  const rem=filled.filter(v=>v===null).length;
+  const txt=document.getElementById('progress-txt');
+  if(rem===0){txt.textContent='✓ all cards filled';txt.style.color='var(--green)';}
+  else{txt.textContent=rem+' card'+(rem>1?'s':'')+' remaining';txt.style.color='var(--dim)';}
 }
 
-// ══════════════════════════════════════════════
-// NUMBER INPUT
-// ══════════════════════════════════════════════
-document.getElementById('num-input').addEventListener('input', e=>{
-  const v = parseInt(e.target.value);
-  if(!isNaN(v) && v>=1 && v<=999999){
-    number = v;
-    render();
-  }
+document.getElementById('num-input').addEventListener('input',e=>{
+  const v=parseInt(e.target.value);
+  if(!isNaN(v)&&v>=1&&v<=999999){number=v;render();}
 });
 
-// ══════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════
-updateConcept();
-render();
+updateConcept();render();
 </script>
 </body>
 </html>
