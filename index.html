@@ -9,450 +9,142 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#07080a;
-  --deep:#0c0e12;
-  --surface:#10141a;
-  --panel:#141820;
-  --border:#1c2430;
-  --border2:#243040;
-  --green:#28e090;
-  --green-glow:rgba(40,224,144,.18);
-  --green-dim:#0a6030;
-  --amber:#e8b020;
-  --amber-glow:rgba(232,176,32,.15);
-  --red:#e84040;
-  --red-glow:rgba(232,64,64,.15);
-  --blue:#3090f0;
-  --dim:#3a5070;
-  --dimmer:#202c3a;
-  --white:#d0e8ff;
-  --sans:'Syne',system-ui,sans-serif;
-  --mono:'DM Mono',ui-monospace,monospace;
+  --void:#07080a;--deep:#0c0e12;--surface:#10141a;--panel:#141820;
+  --border:#1c2430;--border2:#243040;
+  --green:#28e090;--green-glow:rgba(40,224,144,.18);--green-dim:#0a6030;
+  --amber:#e8b020;--amber-glow:rgba(232,176,32,.15);
+  --red:#e84040;--red-glow:rgba(232,64,64,.15);
+  --blue:#3090f0;--dim:#6a90b8;--dimmer:#384858;--white:#d0e8ff;
+  --sans:'Syne',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
 }
 html,body{width:100%;height:100%;overflow:hidden}
-body{
-  font-family:var(--sans);
-  background:var(--void);
-  color:var(--white);
-  -webkit-font-smoothing:antialiased;
-  display:flex;flex-direction:column;
-  position:fixed;inset:0;
-}
-body::after{
-  content:'';position:fixed;inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px);
-  pointer-events:none;z-index:1;
-}
-
-/* ── HEADER ── */
-.top{
-  position:relative;z-index:10;
-  border-bottom:1px solid var(--border);
-  background:var(--deep);
-  height:46px;flex-shrink:0;
-  display:flex;align-items:center;padding:0 18px;gap:0;
-}
-.top-badge{
-  display:flex;align-items:center;gap:7px;
-  font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
-  border-right:1px solid var(--border);padding-right:14px;margin-right:14px;font-family:var(--mono);
-}
-.tb-num{width:18px;height:18px;border-radius:2px;background:rgba(40,224,144,.15);border:1px solid var(--green-dim);color:var(--green);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+body{font-family:var(--sans);background:var(--void);color:var(--white);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;position:fixed;inset:0}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px);pointer-events:none;z-index:1}
+.top{position:relative;z-index:10;border-bottom:1px solid var(--border);background:var(--deep);height:46px;flex-shrink:0;display:flex;align-items:center;padding:0 18px;gap:0}
+.top-badge{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);border-right:1px solid var(--border);padding-right:14px;margin-right:14px;font-family:var(--mono)}
+.tb-num{width:18px;height:18px;border-radius:2px;background:rgba(40,224,144,.15);border:1px solid var(--green-dim);color:var(--green);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .top-title{font-size:17px;font-weight:800;color:var(--white);letter-spacing:-.02em;flex:1}
 .top-tabs{display:flex;gap:0}
-.ttab{
-  height:46px;padding:0 16px;
-  border:none;background:transparent;
-  font-family:var(--sans);font-size:12px;font-weight:700;
-  color:var(--dim);cursor:pointer;
-  border-bottom:2px solid transparent;
-  transition:all .14s;letter-spacing:.03em;
-}
-.ttab:hover{color:var(--white)}
-.ttab.active{color:var(--green);border-bottom-color:var(--green)}
-.top-num-area{
-  border-left:1px solid var(--border);padding:0 14px;
-  display:flex;align-items:center;gap:10px;
-}
-.tna-lbl{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--mono)}
-.num-input{
-  width:140px;padding:4px 10px;
-  border:1px solid var(--border2);border-radius:2px;
-  background:var(--surface);color:var(--green);
-  font-family:var(--mono);font-size:18px;font-weight:700;
-  outline:none;text-align:center;
-  transition:border-color .14s;
-}
+.ttab{height:46px;padding:0 16px;border:none;background:transparent;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .14s;letter-spacing:.03em}
+.ttab:hover{color:var(--white)}.ttab.active{color:var(--green);border-bottom-color:var(--green)}
+.top-num-area{border-left:1px solid var(--border);padding:0 14px;display:flex;align-items:center;gap:10px}
+.tna-lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--mono)}
+.num-input{width:140px;padding:4px 10px;border:1px solid var(--border2);border-radius:2px;background:var(--surface);color:var(--green);font-family:var(--mono);font-size:18px;font-weight:700;outline:none;text-align:center;transition:border-color .14s}
 .num-input:focus{border-color:var(--green)}
-
-/* ── MAIN ── */
-.main{
-  flex:1;display:grid;
-  grid-template-columns:1fr 260px;
-  overflow:hidden;min-height:0;
-  position:relative;z-index:5;
-}
-
-/* ── LEFT: DIGIT CARDS + ACCUMULATOR ── */
-.left{
-  display:flex;flex-direction:column;
-  overflow:hidden;
-  border-right:1px solid var(--border);
-}
-
-/* CONCEPT bar */
-.concept-bar{
-  padding:10px 16px;
-  border-bottom:1px solid var(--border);
-  background:var(--deep);
-  font-size:11px;color:var(--dim);
-  line-height:1.6;font-family:var(--mono);
-  flex-shrink:0;
-}
+.main{flex:1;display:grid;grid-template-columns:1fr 260px;overflow:hidden;min-height:0;position:relative;z-index:5}
+.left{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border)}
+.concept-bar{padding:10px 16px;border-bottom:1px solid var(--border);background:var(--deep);font-size:11px;color:var(--dim);line-height:1.6;font-family:var(--mono);flex-shrink:0}
 .concept-bar strong{color:var(--amber)}
-
-/* presets */
-.preset-bar{
-  padding:8px 16px;border-bottom:1px solid var(--border);
-  background:var(--surface);
-  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
-  flex-shrink:0;
-}
-.pb-lbl{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);white-space:nowrap}
-.psc{
-  padding:3px 9px;background:var(--deep);border:1px solid var(--border2);border-radius:2px;
-  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--dim);
-  cursor:pointer;transition:all .12s;
-}
+.preset-bar{padding:8px 16px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex-shrink:0}
+.pb-lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);white-space:nowrap}
+.psc{padding:3px 9px;background:var(--deep);border:1px solid var(--border2);border-radius:2px;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--dim);cursor:pointer;transition:all .12s}
 .psc:hover{border-color:var(--green);color:var(--green)}
-
-/* digit cards */
-.cards-area{
-  flex:1;overflow-y:auto;overflow-x:auto;
-  padding:16px;
-  display:flex;align-items:flex-start;gap:10px;
-  flex-wrap:nowrap;
-  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
-}
-.cards-area::-webkit-scrollbar{height:3px}
-.cards-area::-webkit-scrollbar-thumb{background:var(--border)}
-
-/* individual digit card */
-.dcard{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  background:var(--surface);border:1px solid var(--border2);
-  padding:10px 8px 8px;
-  width:88px;flex-shrink:0;
-  transition:all .22s;
-  position:relative;
-}
-.dcard.solved{border-color:var(--green);background:rgba(40,224,144,.05)}
-.dcard.shake{animation:shake .35s ease}
+.cards-area{flex:1;overflow-y:auto;overflow-x:auto;padding:16px;display:flex;align-items:flex-start;gap:10px;flex-wrap:nowrap;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.cards-area::-webkit-scrollbar{height:3px}.cards-area::-webkit-scrollbar-thumb{background:var(--border)}
+.dcard{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border2);padding:10px 8px 8px;width:88px;flex-shrink:0;transition:all .22s;position:relative}
+.dcard.solved{border-color:var(--green);background:rgba(40,224,144,.05)}.dcard.shake{animation:shake .35s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-
-.dc-place{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-family:var(--mono)}
-.dc-digit{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--white);line-height:1;text-shadow:0 0 20px rgba(208,232,255,.2)}
+.dc-place{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-family:var(--mono)}
+.dc-digit{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--white);line-height:1}
 .dc-sep{width:56px;height:1px;background:var(--border2)}
-.dc-rule{font-size:9px;color:var(--dim);font-family:var(--mono);text-align:center;line-height:1.4;min-height:30px;display:flex;align-items:center;justify-content:center}
-.dc-slot-wrap{
-  width:60px;height:36px;
-  background:var(--deep);border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:20px;font-weight:700;
-  color:var(--dim);transition:all .2s;
-}
-.dc-slot-wrap.filled-pos{border-color:var(--green);background:rgba(40,224,144,.1);color:var(--green);text-shadow:0 0 10px var(--green)}
-.dc-slot-wrap.filled-neg{border-color:var(--red);background:rgba(232,64,64,.1);color:var(--red)}
-
-.confirm-btn{
-  padding:4px 10px;background:transparent;
-  border:1px solid var(--green-dim);border-radius:2px;
-  font-family:var(--mono);font-size:10px;font-weight:700;
-  color:var(--green);cursor:pointer;letter-spacing:.04em;
-  transition:all .12s;
-}
-.confirm-btn:hover:not(:disabled){background:rgba(40,224,144,.12);box-shadow:0 0 10px var(--green-glow)}
-.confirm-btn:disabled{opacity:.25;cursor:not-allowed}
-
+.dc-rule{font-size:10px;color:var(--dim);font-family:var(--mono);text-align:center;line-height:1.4;min-height:30px;display:flex;align-items:center;justify-content:center}
+.dc-slot-wrap{width:60px;height:36px;background:var(--deep);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:20px;font-weight:700;color:var(--dim);transition:all .2s}
+.dc-slot-wrap.filled-pos{border-color:var(--green);background:rgba(40,224,144,.1);color:var(--green);text-shadow:0 0 10px var(--green)}.dc-slot-wrap.filled-neg{border-color:var(--red);background:rgba(232,64,64,.1);color:var(--red)}
+.confirm-btn{padding:4px 10px;background:transparent;border:1px solid var(--green-dim);border-radius:2px;font-family:var(--mono);font-size:10px;font-weight:700;color:var(--green);cursor:pointer;letter-spacing:.04em;transition:all .12s}
+.confirm-btn:hover:not(:disabled){background:rgba(40,224,144,.12)}.confirm-btn:disabled{opacity:.25;cursor:not-allowed}
 .sign-btns{display:flex;gap:4px}
-.sign-btn{
-  width:32px;height:28px;border-radius:2px;
-  font-family:var(--mono);font-size:16px;font-weight:700;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .14s;border:1px solid;
-}
-.sign-btn.plus{background:rgba(40,224,144,.1);border-color:var(--green-dim);color:var(--green)}
-.sign-btn.plus:hover:not(:disabled){background:rgba(40,224,144,.2);box-shadow:0 0 8px var(--green-glow)}
-.sign-btn.minus{background:rgba(232,64,64,.1);border-color:#501818;color:var(--red)}
-.sign-btn.minus:hover:not(:disabled){background:rgba(232,64,64,.2);box-shadow:0 0 8px var(--red-glow)}
+.sign-btn{width:32px;height:28px;border-radius:2px;font-family:var(--mono);font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;border:1px solid}
+.sign-btn.plus{background:rgba(40,224,144,.1);border-color:var(--green-dim);color:var(--green)}.sign-btn.plus:hover:not(:disabled){background:rgba(40,224,144,.2)}
+.sign-btn.minus{background:rgba(232,64,64,.1);border-color:#501818;color:var(--red)}.sign-btn.minus:hover:not(:disabled){background:rgba(232,64,64,.2)}
 .sign-btn:disabled{opacity:.25;cursor:not-allowed}
-
-/* accumulator */
-.acc-area{
-  padding:12px 16px;border-top:1px solid var(--border);
-  background:var(--deep);flex-shrink:0;
-}
-.acc-lbl{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:7px}
+.acc-area{padding:12px 16px;border-top:1px solid var(--border);background:var(--deep);flex-shrink:0}
+.acc-lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:7px}
 .acc-sum{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-family:var(--mono);font-size:14px;font-weight:700;min-height:26px}
 .at-pos{padding:2px 7px;background:rgba(40,224,144,.1);border:1px solid var(--green-dim);color:var(--green);border-radius:2px}
 .at-neg{padding:2px 7px;background:rgba(232,64,64,.1);border:1px solid #501818;color:var(--red);border-radius:2px}
-.at-op{color:var(--dim);padding:0 2px}
-.at-pending{padding:2px 7px;background:var(--surface);border:1px solid var(--border2);color:var(--dim);border-radius:2px}
+.at-op{color:var(--dim);padding:0 2px}.at-pending{padding:2px 7px;background:var(--surface);border:1px solid var(--border2);color:var(--dim);border-radius:2px}
 .at-total{padding:3px 12px;background:rgba(48,144,240,.12);border:1px solid #1a4880;color:var(--blue);font-size:18px;border-radius:2px}
 .chain-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:7px}
 .chain-chip{padding:3px 9px;background:var(--surface);border:1px solid var(--border2);font-family:var(--mono);font-size:12px;font-weight:700;color:var(--dim);border-radius:2px}
-.chain-chip.final{background:rgba(40,224,144,.15);border-color:var(--green);color:var(--green);box-shadow:0 0 10px var(--green-glow)}
-.chain-arr{color:var(--dim);font-family:var(--mono);font-size:10px}
-
-/* ── RIGHT PANEL ── */
-.right{
-  display:flex;flex-direction:column;
-  background:var(--panel);overflow:hidden;
-}
+.chain-chip.final{background:rgba(40,224,144,.15);border-color:var(--green);color:var(--green)}.chain-arr{color:var(--dim);font-family:var(--mono);font-size:10px}
+.right{display:flex;flex-direction:column;background:var(--panel);overflow:hidden}
 .rp{padding:12px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
-.rp-lbl{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:8px}
-
-/* verdict */
-.verdict{
-  padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;
-  border-bottom:1px solid var(--border);flex-shrink:0;display:none;
-}
+.rp-lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:8px}
+.verdict{padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;border-bottom:1px solid var(--border);flex-shrink:0;display:none}
 .verdict.show{display:flex}
 .vd-eq{font-family:var(--mono);font-size:10px;color:var(--dim);text-align:center}
 .vd-rem{font-family:var(--mono);font-size:48px;font-weight:700;line-height:1;transition:all .25s}
-.vd-rem.zero{color:var(--green);text-shadow:0 0 30px var(--green-glow)}
-.vd-rem.nonzero{color:var(--amber);text-shadow:0 0 20px var(--amber-glow)}
-.vd-badge{
-  padding:6px 16px;font-family:var(--mono);font-size:11px;font-weight:700;
-  letter-spacing:.08em;border:1px solid;border-radius:2px;
-}
-.vd-badge.yes{background:rgba(40,224,144,.1);border-color:var(--green);color:var(--green)}
-.vd-badge.no{background:rgba(232,176,32,.1);border-color:var(--amber);color:var(--amber)}
+.vd-rem.zero{color:var(--green);text-shadow:0 0 30px var(--green-glow)}.vd-rem.nonzero{color:var(--amber);text-shadow:0 0 20px var(--amber-glow)}
+.vd-badge{padding:6px 16px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;border:1px solid;border-radius:2px}
+.vd-badge.yes{background:rgba(40,224,144,.1);border-color:var(--green);color:var(--green)}.vd-badge.no{background:rgba(232,176,32,.1);border-color:var(--amber);color:var(--amber)}
+.explain{flex:1;padding:12px 14px;overflow-y:auto;font-size:10px;color:var(--dim);font-family:var(--mono);line-height:1.75}
+.explain strong{color:var(--amber)}.explain .eg{padding:4px 8px;background:var(--surface);border-left:2px solid var(--green);margin:6px 0;font-size:10px;line-height:1.7}
+.hint-bar{padding:7px 14px;border-top:1px solid var(--border);font-size:10px;color:var(--dimmer);font-family:var(--mono);text-align:center;flex-shrink:0}
 
-/* explanation */
-.explain{
-  flex:1;padding:12px 14px;overflow-y:auto;
-  font-size:10px;color:var(--dim);font-family:var(--mono);line-height:1.75;
+@media(max-width:768px){
+  html,body{overflow:auto;height:auto}
+  body{position:static;display:flex;flex-direction:column;min-height:100dvh}
+  .top{height:auto;flex-wrap:wrap;padding:8px 14px;gap:6px}
+  .top-badge{padding-right:10px}
+  .top-tabs{flex-wrap:wrap;gap:0}
+  .ttab{height:38px;font-size:11px;padding:0 12px}
+  .top-num-area{border-left:none;border-top:1px solid var(--border);padding:6px 14px;width:100%}
+  .num-input{width:120px;font-size:16px}
+  .main{grid-template-columns:1fr;grid-template-rows:auto auto;overflow:visible}
+  .left{border-right:none;border-bottom:1px solid var(--border);overflow:visible}
+  .concept-bar{font-size:11px}
+  .cards-area{flex-wrap:wrap;gap:8px;padding:12px}
+  .dcard{width:76px;padding:8px 6px 6px}
+  .dc-digit{font-size:26px}
+  .acc-area{padding:10px 14px}
+  .right{overflow:visible;max-height:none}
+  .verdict{flex-shrink:0}
+  .explain{max-height:180px;overflow-y:auto}
 }
-.explain strong{color:var(--amber)}
-.explain .eg{padding:4px 8px;background:var(--surface);border-left:2px solid var(--green);margin:6px 0;font-size:9px;line-height:1.7}
-
-/* hint */
-.hint-bar{padding:7px 14px;border-top:1px solid var(--border);font-size:9px;color:var(--dimmer);font-family:var(--mono);text-align:center;flex-shrink:0}
-</style>
+@media(max-width:480px){
+  .dcard{width:66px}
+  .dc-digit{font-size:22px}
+}</style>
 </head>
 <body>
-
 <div class="top">
   <div class="top-badge"><div class="tb-num">5</div>CH·05 · PLAYING WITH NUMBERS</div>
   <div class="top-title">Place-Value Remainders</div>
-  <div class="top-tabs">
-    <button class="ttab active" data-m="9">÷ 9 digit sum</button>
-    <button class="ttab" data-m="11">÷ 11 alt. sum</button>
-  </div>
-  <div class="top-num-area">
-    <span class="tna-lbl">Number</span>
-    <input class="num-input" id="num-input" type="number" value="7309" min="1" max="999999">
-  </div>
+  <div class="top-tabs"><button class="ttab active" data-m="9">÷ 9 digit sum</button><button class="ttab" data-m="11">÷ 11 alt. sum</button></div>
+  <div class="top-num-area"><span class="tna-lbl">Number</span><input class="num-input" id="num-input" type="number" value="7309" min="1" max="999999"></div>
 </div>
-
 <div class="main">
   <div class="left">
-    <div class="concept-bar" id="concept-bar">
-      <strong>Mode: ÷9</strong> — Each place value (1, 10, 100…) is exactly 1 more than a multiple of 9. That extra 1 × digit is all that remains. Fill every card to discover the total.
-    </div>
-    <div class="preset-bar">
-      <span class="pb-lbl">Try:</span>
-      <span id="presets"></span>
-    </div>
+    <div class="concept-bar" id="concept-bar"><strong>Mode: ÷9</strong> — Each place value (1, 10, 100…) is exactly 1 more than a multiple of 9. That extra 1 × digit is all that remains.</div>
+    <div class="preset-bar"><span class="pb-lbl">Try:</span><span id="presets"></span></div>
     <div class="cards-area" id="cards-area"></div>
-    <div class="acc-area">
-      <div class="acc-lbl" id="acc-lbl">Sum so far</div>
-      <div class="acc-sum" id="acc-sum"></div>
-      <div class="chain-row" id="chain-row"></div>
-    </div>
+    <div class="acc-area"><div class="acc-lbl" id="acc-lbl">Sum so far</div><div class="acc-sum" id="acc-sum"></div><div class="chain-row" id="chain-row"></div></div>
   </div>
-
   <div class="right">
-    <div class="rp">
-      <div class="rp-lbl">Progress</div>
-      <div style="font-size:11px;color:var(--dim);font-family:var(--mono)" id="progress-txt">Fill in each card →</div>
-    </div>
-    <div class="verdict" id="verdict">
-      <div class="vd-eq" id="vd-eq">Remainder ÷ 9</div>
-      <div class="vd-rem" id="vd-rem">0</div>
-      <div class="vd-badge" id="vd-badge">—</div>
-    </div>
-    <div class="explain" id="explain">
-      <strong>How it works (÷9):</strong>
-      <div class="eg">10 = 1×9 + 1 → leaves digit</div>
-      <div class="eg">100 = 11×9 + 1 → leaves digit</div>
-      <div class="eg">1000 = 111×9 + 1 → leaves digit</div>
-      Each place value is "multiple of 9 + 1". Multiply by digit d: the 9-part vanishes, only d remains. <strong>Total remainder = digit sum mod 9.</strong>
-    </div>
+    <div class="rp"><div class="rp-lbl">Progress</div><div style="font-size:11px;color:var(--dim);font-family:var(--mono)" id="progress-txt">Fill in each card →</div></div>
+    <div class="verdict" id="verdict"><div class="vd-eq" id="vd-eq">Remainder ÷ 9</div><div class="vd-rem" id="vd-rem">0</div><div class="vd-badge" id="vd-badge">—</div></div>
+    <div class="explain" id="explain"><strong>How it works (÷9):</strong><div class="eg">10 = 1×9 + 1 → leaves digit</div><div class="eg">100 = 11×9 + 1 → leaves digit</div><div class="eg">1000 = 111×9 + 1 → leaves digit</div>Each place value is "multiple of 9 + 1". <strong>Total remainder = digit sum mod 9.</strong></div>
     <div class="hint-bar" id="hint-bar">fill cards left to right</div>
   </div>
 </div>
-
 <script>
-let mode=9,number=7309;
-let filled=[];
+let mode=9,number=7309,filled=[];
 const PRESETS9=[405,8888,7309,93547,6003,358095];
 const PRESETS11=[5324,2728,841,90904,462,38192];
-
-document.querySelectorAll('.ttab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.ttab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    mode=+tab.dataset.m;
-    updateConcept();render();
-  });
-});
-
-function updateConcept(){
-  const bar=document.getElementById('concept-bar');
-  if(mode===9){
-    bar.innerHTML='<strong>Mode: ÷9</strong> — Each place value (1, 10, 100…) is exactly 1 more than a multiple of 9. That extra 1 × digit is all that remains. Fill each card.';
-    document.getElementById('acc-lbl').textContent='Sum of digits';
-    document.getElementById('explain').innerHTML='<strong>How it works (÷9):</strong><div class="eg">10 = 1×9 + 1 → leaves digit × 1</div><div class="eg">100 = 11×9 + 1 → leaves digit × 1</div><div class="eg">1000 = 111×9 + 1 → leaves digit × 1</div>Every place value = multiple of 9 + 1. The 9-part vanishes. <strong>Remainder = digit sum mod 9.</strong>';
-  } else {
-    bar.innerHTML='<strong>Mode: ÷11</strong> — Place values alternate: 1 leaves +1, 10 leaves −1, 100 leaves +1, 1000 leaves −1… Click the correct sign (+/−) for each digit.';
-    document.getElementById('acc-lbl').textContent='Alternating sum';
-    document.getElementById('explain').innerHTML='<strong>How it works (÷11):</strong><div class="eg">1 = 0×11 + 1 → leaves +1</div><div class="eg">10 = 1×11 − 1 → leaves −1</div><div class="eg">100 = 9×11 + 1 → leaves +1</div>Signs alternate because 10 ≡ −1 (mod 11). <strong>Remainder = alternating digit sum mod 11.</strong>';
-  }
-  document.getElementById('vd-eq').textContent='Remainder ÷ '+mode;
-}
-
+document.querySelectorAll('.ttab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.ttab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');mode=+tab.dataset.m;updateConcept();render();});});
+function updateConcept(){const bar=document.getElementById('concept-bar');if(mode===9){bar.innerHTML='<strong>Mode: ÷9</strong> — Each place value (1, 10, 100…) is exactly 1 more than a multiple of 9. Fill each card.';document.getElementById('acc-lbl').textContent='Sum of digits';document.getElementById('explain').innerHTML='<strong>How it works (÷9):</strong><div class="eg">10 = 1×9 + 1 → leaves digit × 1</div><div class="eg">100 = 11×9 + 1 → leaves digit × 1</div>Every place value = multiple of 9 + 1. <strong>Remainder = digit sum mod 9.</strong>';}else{bar.innerHTML='<strong>Mode: ÷11</strong> — Place values alternate: 1 leaves +1, 10 leaves −1, 100 leaves +1… Click the correct sign (+/−) for each digit.';document.getElementById('acc-lbl').textContent='Alternating sum';document.getElementById('explain').innerHTML='<strong>How it works (÷11):</strong><div class="eg">1 = 0×11 + 1 → leaves +1</div><div class="eg">10 = 1×11 − 1 → leaves −1</div><div class="eg">100 = 9×11 + 1 → leaves +1</div>Signs alternate because 10 ≡ −1 (mod 11). <strong>Remainder = alternating digit sum mod 11.</strong>';}document.getElementById('vd-eq').textContent='Remainder ÷ '+mode;}
 function getDigits(){return String(number).split('').map(Number);}
 function getSign(posFromUnits){return mode===9?+1:posFromUnits%2===0?+1:-1;}
 function placeName(p){return['Units','Tens','Hundreds','Thousands','10 Thou.','100 Thou.'][p]||`10^${p}`;}
-function getRuleText(p){
-  const pv=Math.pow(10,p);
-  if(mode===9){return p===0?'1 = 0×9 + 1':`${pv} = ${(pv-1)/9|0}×9 + 1`;}
-  const s=getSign(p);
-  return s>0?`${pv} = ${(pv-1)/11|0}×11 + 1`:`${pv} = ${(pv+1)/11|0}×11 − 1`;
-}
-
-function render(){
-  const digits=getDigits();
-  filled=Array(digits.length).fill(null);
-  document.getElementById('verdict').classList.remove('show');
-
-  // Presets
-  const ps=mode===9?PRESETS9:PRESETS11;
-  document.getElementById('presets').innerHTML=ps.map(v=>`<button class="psc" data-v="${v}">${v}</button>`).join('');
-  document.querySelectorAll('.psc').forEach(b=>{
-    b.addEventListener('click',()=>{number=+b.dataset.v;document.getElementById('num-input').value=number;render();});
-  });
-
-  buildCards();
-  updateAccum();
-  updateProgress();
-}
-
-function buildCards(){
-  const digits=getDigits();
-  const area=document.getElementById('cards-area');
-  area.innerHTML='';
-  digits.forEach((d,i)=>{
-    const posFromUnits=digits.length-1-i;
-    const sign=getSign(posFromUnits);
-    const correct=d*sign;
-
-    const card=document.createElement('div');
-    card.className='dcard';card.id='dc-'+i;
-
-    const pl=document.createElement('div');pl.className='dc-place';pl.textContent=placeName(posFromUnits);card.appendChild(pl);
-    const dg=document.createElement('div');dg.className='dc-digit';dg.textContent=d;card.appendChild(dg);
-    const sp=document.createElement('div');sp.className='dc-sep';card.appendChild(sp);
-    const rl=document.createElement('div');rl.className='dc-rule';rl.style.whiteSpace='pre-line';rl.textContent=getRuleText(posFromUnits);card.appendChild(rl);
-    const sl=document.createElement('div');sl.className='dc-slot-wrap';sl.id='sl-'+i;sl.textContent='?';card.appendChild(sl);
-
-    if(mode===9){
-      const btn=document.createElement('button');btn.className='confirm-btn';btn.id='btn-'+i;
-      btn.textContent=correct===0?'Leaves 0':'+'+correct;
-      btn.addEventListener('click',()=>confirmSlot(i,correct));
-      card.appendChild(btn);
-    } else {
-      const btns=document.createElement('div');btns.className='sign-btns';
-      const pb=document.createElement('button');pb.className='sign-btn plus';pb.textContent='+';
-      const mb=document.createElement('button');mb.className='sign-btn minus';mb.textContent='−';
-      pb.addEventListener('click',()=>trySign(i,+1,correct,d));
-      mb.addEventListener('click',()=>trySign(i,-1,correct,d));
-      btns.appendChild(pb);btns.appendChild(mb);
-      card.appendChild(btns);
-    }
-    area.appendChild(card);
-  });
-}
-
-function trySign(idx,chosenSign,correctVal,digit){
-  const sign=getSign(getDigits().length-1-idx);
-  if(chosenSign===sign)confirmSlot(idx,digit*chosenSign);
-  else{
-    const card=document.getElementById('dc-'+idx);
-    card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');
-    setTimeout(()=>card.classList.remove('shake'),400);
-  }
-}
-
-function confirmSlot(idx,value){
-  filled[idx]=value;
-  const sl=document.getElementById('sl-'+idx);
-  sl.textContent=value>0?'+'+value:value;
-  sl.className='dc-slot-wrap '+(value>0?'filled-pos':value<0?'filled-neg':'filled-pos');
-  const card=document.getElementById('dc-'+idx);card.classList.add('solved');
-  const btn=document.getElementById('btn-'+idx);if(btn)btn.disabled=true;
-  card.querySelectorAll('.sign-btn').forEach(b=>b.disabled=true);
-  updateAccum();updateProgress();checkDone();
-}
-
-function updateAccum(){
-  const digits=getDigits();
-  const sumEl=document.getElementById('acc-sum');
-  const chainEl=document.getElementById('chain-row');
-  let html='',total=0,allFilled=true;
-  digits.forEach((d,i)=>{
-    const v=filled[i];
-    if(i>0)html+=`<span class="at-op">+</span>`;
-    if(v===null){allFilled=false;html+=`<span class="at-pending">?</span>`;}
-    else{total+=v;html+=`<span class="${v>=0?'at-pos':'at-neg'}">${v>=0?'+'+v:v}</span>`;}
-  });
-  if(allFilled)html+=`<span class="at-op">=</span><span class="at-total">${total}</span>`;
-  sumEl.innerHTML=html;
-
-  if(allFilled){
-    let chain=[total];
-    if(mode===9){let x=Math.abs(total);while(x>=10){x=String(x).split('').reduce((a,b)=>a+(+b),0);chain.push(x);}}
-    else{let x=total;while(Math.abs(x)>=11){const ad=String(Math.abs(x)).split('').map(Number);let r=0;ad.slice().reverse().forEach((dd,ii)=>r+=(ii%2===0?1:-1)*dd);x=x<0?-r:r;chain.push(x);}}
-    chainEl.innerHTML=chain.map((v,i)=>`${i>0?'<span class="chain-arr">→</span>':''}<span class="chain-chip ${i===chain.length-1?'final':''}">${v}</span>`).join('');
-  } else chainEl.innerHTML='';
-}
-
-function checkDone(){
-  if(filled.some(v=>v===null))return;
-  const total=filled.reduce((a,b)=>a+b,0);
-  const rem=((total%mode)+mode)%mode;
-  const vd=document.getElementById('verdict');vd.classList.add('show');
-  const vrem=document.getElementById('vd-rem');vrem.textContent=rem;
-  vrem.className='vd-rem '+(rem===0?'zero':'nonzero');
-  const vb=document.getElementById('vd-badge');
-  if(rem===0){vb.className='vd-badge yes';vb.textContent='÷'+mode+' exactly!';}
-  else{vb.className='vd-badge no';vb.textContent='remainder = '+rem;}
-}
-
-function updateProgress(){
-  const rem=filled.filter(v=>v===null).length;
-  const txt=document.getElementById('progress-txt');
-  if(rem===0){txt.textContent='✓ all cards filled';txt.style.color='var(--green)';}
-  else{txt.textContent=rem+' card'+(rem>1?'s':'')+' remaining';txt.style.color='var(--dim)';}
-}
-
-document.getElementById('num-input').addEventListener('input',e=>{
-  const v=parseInt(e.target.value);
-  if(!isNaN(v)&&v>=1&&v<=999999){number=v;render();}
-});
-
+function getRuleText(p){const pv=Math.pow(10,p);if(mode===9){return p===0?'1 = 0×9 + 1':`${pv} = ${(pv-1)/9|0}×9 + 1`;}const s=getSign(p);return s>0?`${pv} = ${(pv-1)/11|0}×11 + 1`:`${pv} = ${(pv+1)/11|0}×11 − 1`;}
+function render(){const digits=getDigits();filled=Array(digits.length).fill(null);document.getElementById('verdict').classList.remove('show');const ps=mode===9?PRESETS9:PRESETS11;document.getElementById('presets').innerHTML=ps.map(v=>`<button class="psc" data-v="${v}">${v}</button>`).join('');document.querySelectorAll('.psc').forEach(b=>{b.addEventListener('click',()=>{number=+b.dataset.v;document.getElementById('num-input').value=number;render();});});buildCards();updateAccum();updateProgress();}
+function buildCards(){const digits=getDigits(),area=document.getElementById('cards-area');area.innerHTML='';digits.forEach((d,i)=>{const posFromUnits=digits.length-1-i,sign=getSign(posFromUnits),correct=d*sign,card=document.createElement('div');card.className='dcard';card.id='dc-'+i;const pl=document.createElement('div');pl.className='dc-place';pl.textContent=placeName(posFromUnits);card.appendChild(pl);const dg=document.createElement('div');dg.className='dc-digit';dg.textContent=d;card.appendChild(dg);const sp=document.createElement('div');sp.className='dc-sep';card.appendChild(sp);const rl=document.createElement('div');rl.className='dc-rule';rl.style.whiteSpace='pre-line';rl.textContent=getRuleText(posFromUnits);card.appendChild(rl);const sl=document.createElement('div');sl.className='dc-slot-wrap';sl.id='sl-'+i;sl.textContent='?';card.appendChild(sl);if(mode===9){const btn=document.createElement('button');btn.className='confirm-btn';btn.id='btn-'+i;btn.textContent=correct===0?'Leaves 0':'+'+correct;btn.addEventListener('click',()=>confirmSlot(i,correct));card.appendChild(btn);}else{const btns=document.createElement('div');btns.className='sign-btns';const pb=document.createElement('button');pb.className='sign-btn plus';pb.textContent='+';const mb=document.createElement('button');mb.className='sign-btn minus';mb.textContent='−';pb.addEventListener('click',()=>trySign(i,+1,correct,d));mb.addEventListener('click',()=>trySign(i,-1,correct,d));btns.appendChild(pb);btns.appendChild(mb);card.appendChild(btns);}area.appendChild(card);});}
+function trySign(idx,chosenSign,correctVal,digit){const sign=getSign(getDigits().length-1-idx);if(chosenSign===sign)confirmSlot(idx,digit*chosenSign);else{const card=document.getElementById('dc-'+idx);card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');setTimeout(()=>card.classList.remove('shake'),400);}}
+function confirmSlot(idx,value){filled[idx]=value;const sl=document.getElementById('sl-'+idx);sl.textContent=value>0?'+'+value:value;sl.className='dc-slot-wrap '+(value>0?'filled-pos':value<0?'filled-neg':'filled-pos');const card=document.getElementById('dc-'+idx);card.classList.add('solved');const btn=document.getElementById('btn-'+idx);if(btn)btn.disabled=true;card.querySelectorAll('.sign-btn').forEach(b=>b.disabled=true);updateAccum();updateProgress();checkDone();}
+function updateAccum(){const digits=getDigits(),sumEl=document.getElementById('acc-sum'),chainEl=document.getElementById('chain-row');let html='',total=0,allFilled=true;digits.forEach((d,i)=>{const v=filled[i];if(i>0)html+=`<span class="at-op">+</span>`;if(v===null){allFilled=false;html+=`<span class="at-pending">?</span>`;}else{total+=v;html+=`<span class="${v>=0?'at-pos':'at-neg'}">${v>=0?'+'+v:v}</span>`;}});if(allFilled)html+=`<span class="at-op">=</span><span class="at-total">${total}</span>`;sumEl.innerHTML=html;if(allFilled){let chain=[total];if(mode===9){let x=Math.abs(total);while(x>=10){x=String(x).split('').reduce((a,b)=>a+(+b),0);chain.push(x);}}else{let x=total;while(Math.abs(x)>=11){const ad=String(Math.abs(x)).split('').map(Number);let r=0;ad.slice().reverse().forEach((dd,ii)=>r+=(ii%2===0?1:-1)*dd);x=x<0?-r:r;chain.push(x);}}chainEl.innerHTML=chain.map((v,i)=>`${i>0?'<span class="chain-arr">→</span>':''}<span class="chain-chip ${i===chain.length-1?'final':''}">${v}</span>`).join('');}else chainEl.innerHTML='';}
+function checkDone(){if(filled.some(v=>v===null))return;const total=filled.reduce((a,b)=>a+b,0),rem=((total%mode)+mode)%mode;const vd=document.getElementById('verdict');vd.classList.add('show');const vrem=document.getElementById('vd-rem');vrem.textContent=rem;vrem.className='vd-rem '+(rem===0?'zero':'nonzero');const vb=document.getElementById('vd-badge');if(rem===0){vb.className='vd-badge yes';vb.textContent='÷'+mode+' exactly!';}else{vb.className='vd-badge no';vb.textContent='remainder = '+rem;}}
+function updateProgress(){const rem=filled.filter(v=>v===null).length,txt=document.getElementById('progress-txt');if(rem===0){txt.textContent='✓ all cards filled';txt.style.color='var(--green)';}else{txt.textContent=rem+' card'+(rem>1?'s':'')+' remaining';txt.style.color='var(--dim)';}}
+document.getElementById('num-input').addEventListener('input',e=>{const v=parseInt(e.target.value);if(!isNaN(v)&&v>=1&&v<=999999){number=v;render();}});
 updateConcept();render();
 </script>
 </body>
